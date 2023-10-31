@@ -1,5 +1,12 @@
 local M = {}
-local augroup = vim.api.nvim_create_augroup("Unclutter", {})
+local augroup_name = "Unclutter"
+local augroup = vim.api.nvim_create_augroup(augroup_name, {})
+
+M.remove_augroup = function()
+  pcall(function() -- pcall in case the augroup doesn't exist
+    vim.api.nvim_del_augroup_by_name(augroup_name)
+  end)
+end
 
 M.on_buf_leave = function(callback)
   vim.api.nvim_create_autocmd("BufLeave", {
@@ -59,6 +66,14 @@ end
 
 M.on_win_enter = function(callback)
   vim.api.nvim_create_autocmd("WinEnter", {
+    group = augroup,
+    pattern = "*",
+    callback = callback,
+  })
+end
+
+M.on_win_new = function(callback)
+  vim.api.nvim_create_autocmd("WinNew", {
     group = augroup,
     pattern = "*",
     callback = callback,

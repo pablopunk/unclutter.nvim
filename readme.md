@@ -2,7 +2,7 @@
 
 > Focus on what matters
 
-> [!WARNING]  
+> [!WARNING]
 > This is a WIP and should not be used unless you're aware of the consequences
 
 *unclutter.nvim* removes the clutter from your buffer list to help you focus on the files that matter to you.
@@ -41,10 +41,15 @@ There's nothing to configure, it just works. If you want to hack it, I've expose
 ```lua
 local unclutter = require("unclutter")
 
-unclutter.add_buffer(bufnr)    -- add buffer to "wanted"
-unclutter.add_current_buffer() -- add current buffer to "wanted"
-unclutter.remove_buffer(bufnr) -- remove buffer from "wanted"
-unclutter.list_buffers()       -- list all wanted buffers ({ name, bufnr })
+unclutter.add_buffer(bufnr)       -- add buffer to "wanted"
+unclutter.add_current_buffer()    -- add current buffer to "wanted"
+unclutter.toggle_buffer(bufnr)    -- toggle buffer in "wanted"
+unclutter.toggle_current_buffer() -- toggle current buffer in "wanted"
+unclutter.remove_buffer(bufnr)    -- remove buffer from "wanted"
+unclutter.list_buffers()          -- list all wanted buffers [{ name, bufnr },...]
+
+unclutter.disable()               -- disable the plugin
+unclutter.enable()                -- enable the plugin
 ```
 
 This is useful if you want to map a key to any of those:
@@ -65,3 +70,5 @@ Other plugins I've used to unclutter in the past:
 
 * [nvim-early-retirement](https://github.com/chrisgrieser/nvim-early-retirement)
 * [hbac.nvim](https://github.com/axkirillov/hbac.nvim)
+
+![logo](./art/logo.png)
