@@ -1,5 +1,5 @@
 local autocmds = require "unclutter.autocmds"
-local buffer = require "unclutter.buf"
+local buffer = require "unclutter.buffer"
 local state = require "unclutter.state"
 
 local M = {}

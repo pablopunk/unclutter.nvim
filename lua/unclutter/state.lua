@@ -1,4 +1,4 @@
-local buffer = require "unclutter.buf"
+local buffer = require "unclutter.buffer"
 
 local M = {
   buffers = {},
