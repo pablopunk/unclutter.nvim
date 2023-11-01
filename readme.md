@@ -15,12 +15,12 @@ You're working on a large project and you're jumping through function definition
 
 If you use a plugin to show your buffers as tabs, or you list your buffers regularly, you know the pain. *unclutter.nvim* will:
 
-### Keep wanted buffers
+### Keep only the buffers you need
 
 - Buffers you made changes to.
 - Buffers visible in any window.
 - Buffers that were open on startup (neovim arguments, restored sessions...).
-- Buffers that are not files (quickfix, help, terminal...).
+- Buffers that are not files (file tree, quickfix, help, terminal...).
 
 Every other buffer will be closed.
 
