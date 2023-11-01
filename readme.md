@@ -61,7 +61,7 @@ unclutter.enable()                -- enable the plugin
 This is useful if you want to map a key to any of those:
 
 ```lua
-vim.keymap.set("n", "<leader>m", unclutter.add_current_buffer, { noremap = true })
+vim.keymap.set("n", "<leader>m", unclutter.toggle_current_buffer, { noremap = true })
 ```
 
 I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer will be kept in the list whenever I do `<c-s>`.
