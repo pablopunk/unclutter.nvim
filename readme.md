@@ -22,7 +22,7 @@ If you use a plugin to show your buffers as tabs, or you list your buffers regul
 - Buffers that were open on startup (neovim arguments, restored sessions...).
 - Buffers that are not files (file tree, quickfix, help, terminal...).
 
-Every other buffer will be closed.
+Every other buffer will be closed at the time you leave it (`BufLeave`).
 
 ## Installation
 
