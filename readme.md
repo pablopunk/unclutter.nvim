@@ -2,8 +2,8 @@
 
 > Focus on what matters
 
-> [!WARNING]
-> This is a WIP and should not be used unless you're aware of the consequences
+> [!NOTE]
+> This plugin hasn't been tested in the wild yet. I'm using it myself and it works great, but I'm not sure if it's ready for everyone. I'm open to feedback and contributions.
 
 *unclutter.nvim* removes the clutter from your buffer list to help you focus on the files that matter to you.
 
