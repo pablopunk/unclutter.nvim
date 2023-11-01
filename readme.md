@@ -34,6 +34,12 @@ Use your favorite package manager.
 { "pablopunk/unclutter.nvim" }
 ```
 
+### Packer.nvim
+
+```lua
+use { "pablopunk/unclutter.nvim" }
+```
+
 ## Customization
 
 There's nothing to configure, it just works. If you want to hack it, I've exposed a few utils to handle the buffers:
