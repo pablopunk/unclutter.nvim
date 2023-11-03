@@ -48,6 +48,8 @@ function M.setup_autocmds()
 end
 
 -- Check if buffer should be closed
+---@param buf number
+---@return boolean
 function M.buffer_should_be_closed(buf)
   return buffer.current() ~= buf
     and buffer.is_file(buf)
