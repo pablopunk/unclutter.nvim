@@ -1,7 +1,7 @@
 local M = {}
 
 -- Get the current buffer
----@return number
+---@return number|nil
 M.current = function()
   local ok, buf = pcall(vim.api.nvim_get_current_buf)
   if not ok then

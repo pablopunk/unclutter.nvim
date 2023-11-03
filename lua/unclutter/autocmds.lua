@@ -2,10 +2,9 @@ local M = {}
 local augroup_name = "Unclutter"
 local augroup = vim.api.nvim_create_augroup(augroup_name, {})
 
+-- Remove created augroup
 M.remove_augroup = function()
-  pcall(function() -- pcall in case the augroup doesn't exist
-    vim.api.nvim_del_augroup_by_name(augroup_name)
-  end)
+  pcall(vim.api.nvim_del_augroup_by_name, augroup_name)
 end
 
 M.on_buf_leave = function(callback)
