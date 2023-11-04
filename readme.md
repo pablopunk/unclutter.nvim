@@ -21,6 +21,7 @@ If you use a plugin to show your buffers as tabs, or you list your buffers regul
 - Buffers visible in any window.
 - Buffers that were open on startup (neovim arguments, restored sessions...).
 - Buffers that are not files (file tree, quickfix, help, terminal...).
+- Buffers that are marked manually (read below).
 
 Every other buffer will be closed at the time you leave it (`BufLeave`).
 
