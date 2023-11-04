@@ -31,18 +31,45 @@ Use your favorite package manager.
 ### Lazy.nvim
 
 ```lua
-{ "pablopunk/unclutter.nvim" }
+{
+  "pablopunk/unclutter.nvim",
+  config = true,
+}
 ```
 
 ### Packer.nvim
 
 ```lua
-use { "pablopunk/unclutter.nvim" }
+use {
+  "pablopunk/unclutter.nvim",
+  config = function()
+    require("unclutter").setup {}
+  end,
+}
 ```
 
 ## Customization
 
-There's nothing to configure, it just works. If you want to hack it, I've exposed a few utils to handle the buffers:
+### Options
+
+Here's the list of options you can pass to the `setup` function:
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `hijack_jumplist` | `true` | `<c-o>` will jump to the previous file even if it was closed by Unclutter |
+
+
+Example:
+
+```lua
+require("unclutter").setup {
+  hijack_jumplist = false,
+}
+```
+
+### Utils
+
+If you want to hack it or create your own mappings, you can use the following functions:
 
 ```lua
 local unclutter = require("unclutter")
@@ -58,7 +85,7 @@ unclutter.disable()               -- disable the plugin
 unclutter.enable()                -- enable the plugin
 ```
 
-This is useful if you want to map a key to any of those:
+Example mapping:
 
 ```lua
 vim.keymap.set("n", "<leader>m", unclutter.toggle_current_buffer, { noremap = true })

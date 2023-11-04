@@ -2,9 +2,8 @@ local unclutter = require "unclutter.unclutter"
 local state = require "unclutter.state"
 local buffer = require "unclutter.buffer"
 
-unclutter.enable()
-
 return {
+  -- handle buffers
   add_buffer = state.add,
   add_current_buffer = function()
     state.add(buffer.current())
@@ -15,6 +14,15 @@ return {
   end,
   list_buffers = state.list,
   remove_buffer = state.remove,
+
+  -- handle plugin (on/off)
   enable = unclutter.enable,
   disable = unclutter.disable,
+
+  -- init function
+  ---@param opts SetupOpts
+  setup = function(opts)
+    print(vim.inspect(opts))
+    unclutter.enable(opts)
+  end,
 }

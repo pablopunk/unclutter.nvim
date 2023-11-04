@@ -1,12 +1,9 @@
 local M = {}
 
 -- Get the current buffer
----@return number|nil
+---@return number
 M.current = function()
-  local ok, buf = pcall(vim.api.nvim_get_current_buf)
-  if not ok then
-    return nil
-  end
+  local _, buf = pcall(vim.api.nvim_get_current_buf)
   return buf
 end
 
@@ -37,6 +34,15 @@ end
 ---@return boolean
 M.delete = function(buf)
   return pcall(vim.api.nvim_buf_delete, buf, { force = true })
+end
+
+-- Unload buffer
+---@param buf number
+---@return boolean
+M.unload = function(buf)
+  return pcall(function()
+    vim.cmd("silent! bunload " .. buf)
+  end, buf)
 end
 
 -- Check if buffer is a file
