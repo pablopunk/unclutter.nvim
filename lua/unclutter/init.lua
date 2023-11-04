@@ -22,7 +22,6 @@ return {
   -- init function
   ---@param opts SetupOpts
   setup = function(opts)
-    print(vim.inspect(opts))
     unclutter.enable(opts)
   end,
 }
