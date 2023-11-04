@@ -56,7 +56,7 @@ Here's the list of options you can pass to the `setup` function:
 
 | Option | Default | Description |
 | --- | --- | --- |
-| `hijack_jumplist` | `true` | `<c-o>` will jump to the previous file even if it was closed by Unclutter |
+| `hijack_jumplist` | `true` | `<c-o>` will jump to the previous file even if it was closed by Unclutter. [See #4](https://github.com/pablopunk/unclutter.nvim/issues/4) |
 
 
 Example:
