@@ -1,15 +1,12 @@
 local autocmds = require "unclutter.autocmds"
 local buffer = require "unclutter.buffer"
 local state = require "unclutter.state"
-local stack = require "unclutter.stack"
 local config = require "unclutter.config"
 
 local M = {}
 
 ---@type number
 M.buf_just_left = nil
----@type string buffer name from which we just jumped out with <c-o>
-M.just_jumped_out_from_file = nil
 
 -- Initialize the plugin
 ---@param opts SetupOpts
@@ -31,14 +28,7 @@ function M.setup_keymaps()
     return
   end
   vim.keymap.set("n", "<c-o>", function()
-    if stack.empty() then
-      -- don't ask -- vim.cmd "normal! <c-o>" doesn't work for some reason
-      vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<c-o>", true, false, true), "n")
-    else
-      local file = stack.pop()
-      M.just_jumped_out_from_file = buffer.name(buffer.current())
-      vim.cmd("e " .. file)
-    end
+    M.go_to_most_recent_file()
   end, { noremap = true, silent = true, desc = "Jump to previous mark or file (unclutter.nvim)" })
 end
 
@@ -82,12 +72,6 @@ end
 -- and other necessary actions.
 ---@param buf number
 function M.close_buffer(buf)
-  local file = buffer.name(buf)
-  if M.just_jumped_out_from_file == file then
-    M.just_jumped_out_from_file = nil
-  else
-    stack.push(file)
-  end
   buffer.delete(buf)
 end
 
@@ -106,6 +90,16 @@ end
 function M.mark_all_open_buffers_as_relevant()
   for _, buf in ipairs(buffer.all()) do
     state.add(buf)
+  end
+end
+
+function M.go_to_most_recent_file()
+  local current_file = buffer.name(buffer.current())
+  for _, file in ipairs(vim.v.oldfiles) do
+    local file_stat = vim.loop.fs_stat(file)
+    if file_stat and file_stat.type == "file" and file ~= current_file then
+      return vim.cmd("edit " .. file)
+    end
   end
 end
 
