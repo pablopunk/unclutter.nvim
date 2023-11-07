@@ -7,7 +7,8 @@
 
 *unclutter.nvim* removes the clutter from your buffer list to help you focus on the files that matter to you.
 
-![before-after](./art/before-after.png)
+![before-after](./art/before-after-light.png#gh-light-mode-only)
+![before-after](./art/before-after-dark.png#gh-dark-mode-only)
 
 ## Features
 
@@ -105,4 +106,6 @@ Other plugins I've used to unclutter in the past:
 * [nvim-early-retirement](https://github.com/chrisgrieser/nvim-early-retirement)
 * [hbac.nvim](https://github.com/axkirillov/hbac.nvim)
 
-![logo](./art/logo.png)
+![logo-ligth](./art/logo-light.png#gh-light-mode-only)
+![logo-dark](./art/logo-dark.png#gh-dark-mode-only)
+
