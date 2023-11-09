@@ -128,20 +128,25 @@ end
 ---@return string
 function M.get_tab_label(buf)
   local file = buffer.name(buf)
+  local type = buffer.type(buf)
 
-  if file == "" then
-    return "*"
+  if file == "" and type ~= "nofile" then
+    return type
   end
 
   local label = vim.fn.fnamemodify(file, ":t")
 
   if label == nil then
-    return "*"
+    return type
   end
 
   if has_icons then
     local file_extension = vim.fn.fnamemodify(file, ":e")
     local icon = icons.get_icon(label, file_extension, { default = true })
+
+    if icon and label == "" then
+      return string.format(" %s ", icon)
+    end
 
     return string.format(" %s %s ", icon, label)
   end
@@ -153,7 +158,8 @@ end
 ---@return table<number, number>
 function M.get_buffers()
   local buffers = {}
-  for _, buf in ipairs(buffer.all()) do
+  local current_tab = vim.fn.tabpagenr()
+  for _, buf in ipairs(buffer.all(current_tab)) do
     if buffer.current() == buf or M.is_buffer_kept(buf) or buffer.is_visible(buf) or not buffer.is_file(buf) then
       buffers[#buffers + 1] = buf
     end
@@ -195,6 +201,10 @@ end
 -- Navigate to next buffer
 function M.next()
   local buffers = M.get_buffers()
+  if buffers == nil or #buffers < 2 then
+    print "No more buffers"
+    return
+  end
   local current = buffer.current()
   local next_buffer = nil
   for i, buf in ipairs(buffers) do
@@ -216,6 +226,10 @@ end
 -- Navigate to previous buffer
 function M.prev()
   local buffers = M.get_buffers()
+  if buffers == nil or #buffers < 2 then
+    print "No more buffers"
+    return
+  end
   local current = buffer.current()
   local previous_buffer = nil
   for i, buf in ipairs(buffers) do

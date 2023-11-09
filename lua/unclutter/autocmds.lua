@@ -80,7 +80,7 @@ M.on_win_new = function(callback)
 end
 
 M.on_tabline_should_be_updated = function(callback)
-  vim.api.nvim_create_autocmd({ "VimEnter", "TabEnter", "BufEnter", "BufNewFile", "BufDelete" }, {
+  vim.api.nvim_create_autocmd({ "VimEnter", "TabEnter", "TermEnter", "BufEnter", "BufNewFile", "BufDelete" }, {
     group = augroup,
     pattern = "*",
     callback = callback,

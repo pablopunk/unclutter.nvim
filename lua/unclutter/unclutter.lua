@@ -46,7 +46,7 @@ function M.setup_autocmds()
     end
   end)
   autocmds.on_vim_enter(function()
-    M.show_all_buffers()
+    M.keep_all_buffers()
   end)
 end
 
@@ -61,7 +61,7 @@ function M.buffer_should_be_hidden(buf)
     and buffer.windows(buf) == 0
 end
 
-function M.show_all_buffers()
+function M.keep_all_buffers()
   for _, buf in ipairs(buffer.all()) do
     tabline.keep_buffer(buf)
   end

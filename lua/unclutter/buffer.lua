@@ -91,13 +91,19 @@ M.is_loaded = function(buf)
 end
 
 -- Return a list of all file buffers
+---@param tab? number
 ---@return table
-M.all = function()
-  local buffers = vim.tbl_filter(function(buf)
-    return M.is_file(buf) and M.is_valid(buf) and M.is_loaded(buf)
-  end, vim.api.nvim_list_bufs())
+M.all = function(tab)
+  local buffers
+  if tab ~= nil then
+    buffers = vim.fn.tabpagebuflist(tab)
+  else
+    buffers = vim.api.nvim_list_bufs()
+  end
 
-  return buffers
+  return vim.tbl_filter(function(buf)
+    return M.is_valid(buf)
+  end, buffers)
 end
 
 return M
