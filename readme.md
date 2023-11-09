@@ -5,7 +5,7 @@
 > [!NOTE]
 > This plugin hasn't been tested in the wild yet. I'm using it myself and it works great,  but I'm open to feedback and contributions.
 
-*unclutter.nvim* is a **tabline that removes the clutter*+ to help you focus on the files that matter to **you**.
+*unclutter.nvim* is a **tabline that removes the clutter** to help you focus on the files that matter to **you**.
 
 ![before-after](./art/before-after-light.png#gh-light-mode-only)
 ![before-after](./art/before-after-dark.png#gh-dark-mode-only)
