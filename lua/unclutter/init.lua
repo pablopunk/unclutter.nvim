@@ -1,27 +1,30 @@
 local unclutter = require "unclutter.unclutter"
-local state = require "unclutter.state"
+local tabline = require "unclutter.tabline"
 local buffer = require "unclutter.buffer"
 
+unclutter.enable()
+
 return {
-  -- handle buffers
-  add_buffer = state.add,
-  add_current_buffer = function()
-    state.add(buffer.current())
+  -- handle tabline buffers
+  keep = tabline.keep_buffer,
+  keep_current = function()
+    tabline.keep_buffer(buffer.current())
   end,
-  toggle_buffer = state.toggle,
-  toggle_current_buffer = function()
-    state.toggle(buffer.current())
+  toggle = tabline.toggle_buffer,
+  toggle_current = function()
+    tabline.toggle_buffer(buffer.current())
   end,
-  list_buffers = state.list,
-  remove_buffer = state.remove,
+  list = tabline.get_buffers,
+  hide = tabline.hide_buffer,
+  hide_current = function()
+    tabline.remove_buffer(buffer.current())
+  end,
+
+  -- bnext & bprev
+  next = tabline.next,
+  prev = tabline.prev,
 
   -- handle plugin (on/off)
   enable = unclutter.enable,
   disable = unclutter.disable,
-
-  -- init function
-  ---@param opts SetupOpts
-  setup = function(opts)
-    unclutter.enable(opts)
-  end,
 }

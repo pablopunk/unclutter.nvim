@@ -82,11 +82,19 @@ M.is_valid = function(buf)
   return ok and valid
 end
 
+-- Check if buffer is loaded
+---@param buf number
+---@return boolean
+M.is_loaded = function(buf)
+  local ok, loaded = pcall(vim.api.nvim_buf_is_loaded, buf)
+  return ok and loaded
+end
+
 -- Return a list of all file buffers
 ---@return table
 M.all = function()
   local buffers = vim.tbl_filter(function(buf)
-    return M.is_file(buf) and M.is_valid(buf)
+    return M.is_file(buf) and M.is_valid(buf) and M.is_loaded(buf)
   end, vim.api.nvim_list_bufs())
 
   return buffers

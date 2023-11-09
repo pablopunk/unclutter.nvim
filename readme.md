@@ -3,20 +3,20 @@
 > Focus on what matters
 
 > [!NOTE]
-> This plugin hasn't been tested in the wild yet. I'm using it myself and it works great, but I'm not sure if it's ready for everyone. I'm open to feedback and contributions.
+> This plugin hasn't been tested in the wild yet. I'm using it myself and it works great,  but I'm open to feedback and contributions.
 
-*unclutter.nvim* removes the clutter from your buffer list to help you focus on the files that matter to you.
+*unclutter.nvim* is a **tabline that removes the clutter*+ to help you focus on the files that matter to **you**.
 
 ![before-after](./art/before-after-light.png#gh-light-mode-only)
 ![before-after](./art/before-after-dark.png#gh-dark-mode-only)
 
 ## Features
 
-You're working on a large project and you're jumping through function definitions and index files that endup cluttering your buffer list.
+You're working on a large project and you're jumping through function definitions and index files that endup cluttering your tabline. *Unclutter.nvim* will:
 
-If you use a plugin to show your buffers as tabs, or you list your buffers regularly, you know the pain. *unclutter.nvim* will:
+### Only show the buffers you need
 
-### Keep only the buffers you need
+A minimal tabline with icons will show:
 
 - Buffers you made changes to.
 - Buffers visible in any window.
@@ -35,7 +35,7 @@ Use your favorite package manager.
 ```lua
 {
   "pablopunk/unclutter.nvim",
-  config = true,
+  dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
 }
 ```
 
@@ -44,30 +44,13 @@ Use your favorite package manager.
 ```lua
 use {
   "pablopunk/unclutter.nvim",
-  config = function()
-    require("unclutter").setup {}
-  end,
+  requires = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
 }
 ```
 
 ## Customization
 
-### Options
-
-Here's the list of options you can pass to the `setup` function:
-
-| Option | Default | Description |
-| --- | --- | --- |
-| `hijack_jumplist` | `true` | `<c-o>` will go back to the previous file in `:oldfiles`, not the previous mark ([See #4](https://github.com/pablopunk/unclutter.nvim/issues/4)). |
-
-
-Example:
-
-```lua
-require("unclutter").setup {
-  hijack_jumplist = false,
-}
-```
+Unclutter doesn't require a setup function nor any configuration. It works out of the box.
 
 ### Utils
 
@@ -76,36 +59,46 @@ If you want to hack it or create your own mappings, you can use the following fu
 ```lua
 local unclutter = require("unclutter")
 
-unclutter.add_buffer(bufnr)       -- add buffer to "wanted"
-unclutter.add_current_buffer()    -- add current buffer to "wanted"
-unclutter.toggle_buffer(bufnr)    -- toggle buffer in "wanted"
-unclutter.toggle_current_buffer() -- toggle current buffer in "wanted"
-unclutter.remove_buffer(bufnr)    -- remove buffer from "wanted"
-unclutter.list_buffers()          -- list all wanted buffers [{ name, bufnr },...]
+-- handle tabline buffers
+unclutter.keep(bufnr)        -- Show buffer in tabline
+unclutter.remove(bufnr)        -- Hide buffer from tabline
+unclutter.toggle(bufnr)      -- Toggle buffer in tabline
+unclutter.keep_current()     -- Show current buffer in tabline
+unclutter.hide_current()     -- Hide current buffer from tabline
+unclutter.toggle_current()   -- Toggle current buffer in tabline
+unclutter.list()             -- List tabline buffers
 
-unclutter.disable()               -- disable the plugin
-unclutter.enable()                -- enable the plugin
+-- navigate tabline buffers (like :bnext and :bprev)
+unclutter.next()             -- Go to next buffer
+unclutter.prev()             -- Go to previous buffer
+
+-- handle plugin (on/off)
+unclutter.enable()           -- Enable unclutter
+unclutter.disable()          -- Disable unclutter
 ```
 
-Example mapping:
+Example mappings:
 
 ```lua
-vim.keymap.set("n", "<leader>m", unclutter.toggle_current_buffer, { noremap = true })
+vim.keymap.set("n", "gn", unclutter.next, { noremap = true })
+vim.keymap.set("n", "gp", unclutter.prev, { noremap = true })
 ```
 
-I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer will be kept in the list whenever I do `<c-s>`.
+I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer will be kept in the tabline whenever I do `<c-s>`.
 
 ## Inspiration
 
 This behavior was inspired by vscode (sorry), that won't keep your tabs open until you hit save (or double-click the tab).
 
-Also this plugin was not only inspired by [harpoon](https://github.com/ThePrimeagen/harpoon) too, it's the main reason behind it. I was trying to hack harpoon to get this behavior, but didn't like the outcome. The plugin is great but I don't like their tabs implementation and other small stuff. It was there when I realized I could just quickly code my own.
+To create the tabline I used [*mini.tabline*](https://github.com/echasnovski/mini.tabline/) as a starting point. It's a great plugin and the one I was using before. The label/tabs implementation on [tabline.lua](./lua/unclutter/tabline.lua) is an adaptation of *mini.tabline*'s code.
+
+Also this plugin was not only inspired by [harpoon](https://github.com/ThePrimeagen/harpoon) too, it's the main reason behind it. I was trying to hack harpoon to get this behavior, but didn't like the outcome. The plugin is great but I don't like their tabs implementation and other small stuff. It was there when I realized I could just code my own.
 
 Other plugins I've used to unclutter in the past:
 
 * [nvim-early-retirement](https://github.com/chrisgrieser/nvim-early-retirement)
 * [hbac.nvim](https://github.com/axkirillov/hbac.nvim)
 
-![logo-ligth](./art/logo-light.png#gh-light-mode-only)
+![logo-light](./art/logo-light.png#gh-light-mode-only)
 ![logo-dark](./art/logo-dark.png#gh-dark-mode-only)
 
