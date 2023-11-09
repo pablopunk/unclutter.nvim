@@ -21,17 +21,17 @@ end
 
 -- Setup the autocmds
 function M.setup_autocmds()
-  autocmds.on_tabline_should_be_updated(function()
-    tabline.update()
+  autocmds.on_buf_delete(function(event)
+    tabline.remove_buffer(event.buf)
   end)
   autocmds.on_buf_leave(function(event)
-    if M.buffer_should_be_hidden(event.buf) then
+    if M.buffer_should_be_hidden_on_leave(event.buf) then
       tabline.remove_buffer(event.buf)
     end
     M.buf_just_left = event.buf
   end)
   autocmds.on_buf_enter(function(event)
-    if M.buf_just_left ~= nil and event.buf ~= M.buf_just_left and M.buffer_should_be_hidden(M.buf_just_left) then
+    if M.buf_just_left ~= nil and event.buf ~= M.buf_just_left and not tabline.is_buffer_kept(M.buf_just_left) then
       tabline.remove_buffer(M.buf_just_left)
     end
   end)
@@ -53,9 +53,9 @@ end
 -- Check if buffer should be hidden
 ---@param buf number
 ---@return boolean
-function M.buffer_should_be_hidden(buf)
-  return buffer.current() ~= buf
-    and not tabline.is_buffer_kept(buf)
+function M.buffer_should_be_hidden_on_leave(buf)
+  return not tabline.is_buffer_kept(buf)
+    and buffer.current() ~= buf
     and buffer.is_file(buf)
     and not buffer.is_visible(buf)
     and buffer.windows(buf) == 0

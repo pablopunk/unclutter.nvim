@@ -90,20 +90,51 @@ M.is_loaded = function(buf)
   return ok and loaded
 end
 
--- Return a list of all file buffers
----@param tab? number
----@return table
-M.all = function(tab)
-  local buffers
-  if tab ~= nil then
-    buffers = vim.fn.tabpagebuflist(tab)
-  else
-    buffers = vim.api.nvim_list_bufs()
+-- Check if buffer is listed
+---@param buf number
+---@return boolean
+M.listed = function(buf)
+  return vim.bo[buf].buflisted
+end
+
+-- Check if buffer is in tab
+---@param buf number
+---@param tab? number -- If not supplied, current tab is used
+M.is_in_tab = function(buf, tab)
+  if tab == nil then
+    tab = vim.api.nvim_get_current_tabpage()
+  end
+  local tabpage_buffers = vim.api.nvim_tabpage_list_wins(tab)
+  for _, winid in ipairs(tabpage_buffers) do
+    local bufnr = vim.api.nvim_win_get_buf(winid)
+    if vim.api.nvim_buf_is_loaded(bufnr) then
+      if bufnr == buf then
+        return true
+      end
+    end
   end
 
-  return vim.tbl_filter(function(buf)
-    return M.is_valid(buf)
-  end, buffers)
+  local ok, tab_buffers = pcall(vim.fn.tabpagebuflist, tab)
+  if not ok then
+    return false
+  end
+  return vim.tbl_contains(tab_buffers, buf)
+end
+
+-- Return a list of all buffers
+---@param tab? number
+---@return table
+M.all = function(tab) ---@TODO: Only buffers in `tab`
+  local buf_list = vim.api.nvim_list_bufs()
+  local listed_buffers = vim.tbl_filter(M.listed, buf_list)
+  local current_buf = M.current()
+
+  -- add current buffer to list if it's not listed
+  if not vim.tbl_contains(listed_buffers, current_buf) then
+    table.insert(listed_buffers, current_buf)
+  end
+
+  return listed_buffers
 end
 
 return M

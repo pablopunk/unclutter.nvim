@@ -10,11 +10,12 @@ M.tablineat = vim.fn.has "tablineat"
 
 -- Set vim options and format tabline
 function M.enable()
-  vim.opt.hidden = true
   vim.o.showtabline = 2
-  M.update()
+  vim.o.hidden = true
   M.create_highlight_groups()
   M.create_clickable_tab_fn()
+  _G.UnclutterTabline = M -- export module to use it in the next line as a vim variable
+  vim.o.tabline = "%!v:lua.UnclutterTabline.get_tabline_string()"
 end
 
 -- Disable tabline
@@ -28,7 +29,7 @@ function M.create_highlight_groups()
   vim.api.nvim_set_hl(0, "UnclutterVisible", { link = "TabLineFill", default = true })
   vim.api.nvim_set_hl(0, "UnclutterHidden", { link = "TabLine", default = true })
   vim.api.nvim_set_hl(0, "UnclutterFill", { link = "Normal", default = true })
-  vim.api.nvim_set_hl(0, "UnclutterTablineTabpagesection", { link = "Search", default = true })
+  vim.api.nvim_set_hl(0, "UnclutterTabPage", { link = "Search", default = true })
   vim.api.nvim_set_hl(0, "UnclutterTablineFill", { link = "Normal", default = true })
 end
 
@@ -45,22 +46,18 @@ function M.make_tabpage_section()
   M.tabpage_section = (" Tab %s/%s "):format(cur_tabpagenr, n_tabpages)
 end
 
--- Update the tabline string
-function M.update()
-  vim.o.tabline = M.get_tabline_string()
-end
-
 -- Remove a buffer from the list
 function M.remove_buffer(bufnr)
   M.keep_buffers[bufnr] = nil
-  M.update()
 end
 
 -- Add a buffer to the list
 ---@param bufnr number
 function M.keep_buffer(bufnr)
+  if bufnr == nil then
+    return
+  end
   M.keep_buffers[bufnr] = true
-  M.update()
 end
 
 -- Toggle a buffer in the buffer list
@@ -76,7 +73,7 @@ end
 -- Create the function for switching buffers with the mouse
 -- Copied from https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua#L185
 function M.create_clickable_tab_fn()
-  vim.api.nvim_exec(
+  vim.cmd(
     [[function! UnclutterSwitchBuffer(buf_id, clicks, button, mod)
         execute 'buffer' a:buf_id
       endfunction]],
@@ -125,7 +122,7 @@ end
 
 -- Get the tab's label
 ---@param buf number
----@return string
+---@return string|nil
 function M.get_tab_label(buf)
   local file = buffer.name(buf)
   local type = buffer.type(buf)
@@ -136,17 +133,13 @@ function M.get_tab_label(buf)
 
   local label = vim.fn.fnamemodify(file, ":t")
 
-  if label == nil then
-    return type
+  if label == nil or label == "" then
+    return nil
   end
 
   if has_icons then
     local file_extension = vim.fn.fnamemodify(file, ":e")
     local icon = icons.get_icon(label, file_extension, { default = true })
-
-    if icon and label == "" then
-      return string.format(" %s ", icon)
-    end
 
     return string.format(" %s %s ", icon, label)
   end
@@ -161,7 +154,7 @@ function M.get_buffers()
   local current_tab = vim.fn.tabpagenr()
   for _, buf in ipairs(buffer.all(current_tab)) do
     if buffer.current() == buf or M.is_buffer_kept(buf) or buffer.is_visible(buf) or not buffer.is_file(buf) then
-      buffers[#buffers + 1] = buf
+      table.insert(buffers, buf)
     end
   end
   return buffers
@@ -177,9 +170,10 @@ function M.get_buffer_tabs()
     tab["func"] = M.get_tab_func(buf)
     tab["label"] = M.get_tab_label(buf)
 
-    table.insert(tabs, tab)
+    if tab["label"] ~= nil then
+      table.insert(tabs, tab)
+    end
   end
-
   return tabs
 end
 
@@ -193,7 +187,7 @@ function M.get_tabline_string()
   end
 
   local buffer_tabline = ("%s%%X%%#UnclutterTablineFill#"):format(table.concat(buffer_tabs, ""))
-  local buffers_and_tabs = ("%%#UnclutterTablineTabpagesection#%s%s"):format(M.tabpage_section, buffer_tabline)
+  local buffers_and_tabs = ("%%#UnclutterTabPage#%s%s"):format(M.tabpage_section, buffer_tabline)
 
   return buffers_and_tabs
 end
