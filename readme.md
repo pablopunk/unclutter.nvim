@@ -58,7 +58,7 @@ Here's the default configuration:
 
 ```lua
 require('unclutter').setup {
-  clean_after = 3, -- number of tabs to start uncluttering.
+  clean_after = 3, -- number of tabs to start uncluttering. i.e don't hide until 4 tabs are open
 }
 ```
 
