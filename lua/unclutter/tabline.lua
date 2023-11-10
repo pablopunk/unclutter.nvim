@@ -163,7 +163,7 @@ function M.get_buffers()
       or M.is_buffer_kept(buf) -- keep buffers that are marked
       or buffer.is_visible(buf) -- keep visible buffers
       or not buffer.is_file(buf) -- keep non-file buffers
-      or #buffers <= config.clean_after -- keep first n buffers (config)
+      or #buffers < config.clean_after -- keep first n buffers (config)
     then
       table.insert(buffers, buf)
     end
