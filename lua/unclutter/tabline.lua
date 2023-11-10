@@ -140,12 +140,14 @@ function M.get_tab_label(buf)
   if has_icons then
     local file_extension = vim.fn.fnamemodify(file, ":e")
     local icon = icons.get_icon(label, file_extension, { default = true })
-
     if label == "" and icon then
       return string.format(" %s ", icon)
     end
-
     return string.format(" %s %s ", icon, label)
+  end
+
+  if label == "" then
+    return " • "
   end
 
   return string.format(" %s ", label)
