@@ -28,7 +28,7 @@ Every other buffer will be closed at the time you leave it (`BufLeave`).
 
 ## Installation
 
-Use your favorite package manager.
+Use your favorite package manager. Calling the `setup()` function is optional.
 
 ### Lazy.nvim
 
@@ -36,7 +36,6 @@ Use your favorite package manager.
 {
   "pablopunk/unclutter.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
-  config = true
 }
 ```
 
@@ -46,9 +45,6 @@ Use your favorite package manager.
 use {
   "pablopunk/unclutter.nvim",
   requires = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
-  config = {
-    require("unclutter").setup {}
-  }
 }
 ```
 

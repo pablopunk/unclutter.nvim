@@ -4,4 +4,4 @@ if vim.g.loaded_unclutter == 1 then
 end
 vim.g.loaded_unclutter = 1
 
-require "unclutter"
+require("unclutter").setup {}

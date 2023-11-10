@@ -7,20 +7,31 @@ local M = {}
 
 ---@type number
 M.buf_just_left = nil
-M.clean_after = 3 -- default number of tabs to start uncluttering
+M.enabled = false
 
 -- Initialize the plugin
 ---@param opts Config
 function M.enable(opts)
-  config.init(opts)
-  M.setup_autocmds()
+  config.set(opts)
   tabline.enable()
+
+  if M.enabled == false then -- don't do some stuff twice if setup() is called again
+    M.setup_autocmds()
+  end
+
+  M.enabled = true
 end
 
 -- Disable the plugin
 function M.disable()
+  if M.enabled == false then
+    return
+  end
+
   autocmds.remove_augroup()
   tabline.disable()
+
+  M.enabled = false
 end
 
 -- Setup the autocmds
