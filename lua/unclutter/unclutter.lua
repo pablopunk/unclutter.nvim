@@ -1,14 +1,18 @@
 local autocmds = require "unclutter.autocmds"
 local buffer = require "unclutter.buffer"
 local tabline = require "unclutter.tabline"
+local config = require "unclutter.config"
 
 local M = {}
 
 ---@type number
 M.buf_just_left = nil
+M.clean_after = 3 -- default number of tabs to start uncluttering
 
 -- Initialize the plugin
-function M.enable()
+---@param opts Config
+function M.enable(opts)
+  config.init(opts)
   M.setup_autocmds()
   tabline.enable()
 end

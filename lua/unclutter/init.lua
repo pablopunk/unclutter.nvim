@@ -2,8 +2,6 @@ local unclutter = require "unclutter.unclutter"
 local tabline = require "unclutter.tabline"
 local buffer = require "unclutter.buffer"
 
-unclutter.enable()
-
 return {
   -- handle tabline buffers
   keep = tabline.keep_buffer,
@@ -27,4 +25,9 @@ return {
   -- handle plugin (on/off)
   enable = unclutter.enable,
   disable = unclutter.disable,
+
+  ---@param opts table
+  setup = function(opts)
+    unclutter.enable(opts)
+  end,
 }

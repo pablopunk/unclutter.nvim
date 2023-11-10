@@ -36,6 +36,7 @@ Use your favorite package manager.
 {
   "pablopunk/unclutter.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
+  config = true
 }
 ```
 
@@ -45,12 +46,21 @@ Use your favorite package manager.
 use {
   "pablopunk/unclutter.nvim",
   requires = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
+  config = {
+    require("unclutter").setup {}
+  }
 }
 ```
 
 ## Customization
 
-Unclutter doesn't require a setup function nor any configuration. It works out of the box.
+Here's the default configuration:
+
+```lua
+require('unclutter').setup {
+  clean_after = 3, -- number of tabs to start uncluttering.
+}
+```
 
 ### Utils
 

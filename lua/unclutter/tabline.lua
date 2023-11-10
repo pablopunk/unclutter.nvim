@@ -1,10 +1,11 @@
 local buffer = require "unclutter.buffer"
 local has_icons, icons = pcall(require, "nvim-web-devicons")
+local config = require "unclutter.config"
 
 local M = {}
 
 ---@type table<number, boolean>
-M.keep_buffers = {}
+M.buffers_to_keep = {}
 M.tabpage_section = ""
 M.tablineat = vim.fn.has "tablineat"
 
@@ -14,8 +15,7 @@ function M.enable()
   vim.o.hidden = true
   M.create_highlight_groups()
   M.create_clickable_tab_fn()
-  _G.UnclutterTabline = M -- export module to use it in the next line as a vim variable
-  vim.o.tabline = "%!v:lua.UnclutterTabline.get_tabline_string()"
+  vim.o.tabline = [[%!luaeval('require("unclutter.tabline").get_tabline_string()')]]
 end
 
 -- Disable tabline
@@ -48,7 +48,7 @@ end
 
 -- Remove a buffer from the list
 function M.remove_buffer(bufnr)
-  M.keep_buffers[bufnr] = nil
+  M.buffers_to_keep[bufnr] = nil
 end
 
 -- Add a buffer to the list
@@ -57,7 +57,7 @@ function M.keep_buffer(bufnr)
   if bufnr == nil then
     return
   end
-  M.keep_buffers[bufnr] = true
+  M.buffers_to_keep[bufnr] = true
 end
 
 -- Toggle a buffer in the buffer list
@@ -85,14 +85,14 @@ end
 ---@param bufnr number
 ---@return boolean
 function M.is_buffer_hidden(bufnr)
-  return M.keep_buffers[bufnr] == nil
+  return M.buffers_to_keep[bufnr] == nil
 end
 
 -- Is buffer shown?
 ---@param bufnr number
 ---@return boolean
 function M.is_buffer_kept(bufnr)
-  return M.keep_buffers[bufnr] == true
+  return M.buffers_to_keep[bufnr] == true
 end
 
 -- Get the highlight group for a buffer
@@ -128,18 +128,22 @@ function M.get_tab_label(buf)
   local type = buffer.type(buf)
 
   if file == "" and type ~= "nofile" then
-    return type
+    return string.format(" %s ", type)
   end
 
   local label = vim.fn.fnamemodify(file, ":t")
 
-  if label == nil or label == "" then
+  if label == nil then
     return nil
   end
 
   if has_icons then
     local file_extension = vim.fn.fnamemodify(file, ":e")
     local icon = icons.get_icon(label, file_extension, { default = true })
+
+    if label == "" and icon then
+      return string.format(" %s ", icon)
+    end
 
     return string.format(" %s %s ", icon, label)
   end
@@ -151,12 +155,20 @@ end
 ---@return table<number, number>
 function M.get_buffers()
   local buffers = {}
-  local current_tab = vim.fn.tabpagenr()
-  for _, buf in ipairs(buffer.all(current_tab)) do
-    if buffer.current() == buf or M.is_buffer_kept(buf) or buffer.is_visible(buf) or not buffer.is_file(buf) then
+  local all_buffers = buffer.all()
+
+  for _, buf in ipairs(all_buffers) do
+    if
+      buffer.current() == buf -- keep current buffer
+      or M.is_buffer_kept(buf) -- keep buffers that are marked
+      or buffer.is_visible(buf) -- keep visible buffers
+      or not buffer.is_file(buf) -- keep non-file buffers
+      or #buffers <= config.clean_after -- keep first n buffers (config)
+    then
       table.insert(buffers, buf)
     end
   end
+
   return buffers
 end
 
