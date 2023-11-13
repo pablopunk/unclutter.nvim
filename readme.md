@@ -19,7 +19,7 @@ You're working on a large project and you're jumping through function definition
 A minimal tabline with icons will show:
 
 - Buffers you made changes to.
-- Buffers visible in any window.
+- Buffers visible in any split.
 - Buffers that were open on startup (neovim arguments, restored sessions...).
 - Buffers that are not files (file tree, quickfix, help, terminal...).
 - Buffers that are marked manually (read below).
