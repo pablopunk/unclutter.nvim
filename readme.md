@@ -67,7 +67,7 @@ local unclutter = require("unclutter")
 
 -- handle tabline buffers
 unclutter.keep(bufnr)        -- Show buffer in tabline
-unclutter.remove(bufnr)        -- Hide buffer from tabline
+unclutter.remove(bufnr)      -- Hide buffer from tabline
 unclutter.toggle(bufnr)      -- Toggle buffer in tabline
 unclutter.keep_current()     -- Show current buffer in tabline
 unclutter.hide_current()     -- Hide current buffer from tabline
