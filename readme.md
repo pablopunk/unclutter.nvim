@@ -96,7 +96,7 @@ I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer
 
 This behavior was inspired by vscode (sorry), that won't keep your tabs open until you hit save (or double-click the tab).
 
-To create the tabline I used [*mini.tabline*](https://github.com/echasnovski/mini.tabline/) as a starting point. It's a great plugin and the one I was using before. The label/tabs implementation on [tabline.lua](./lua/unclutter/tabline.lua) is an adaptation of *mini.tabline*'s code.
+To create the tabline I used [*mini.tabline*](https://github.com/echasnovski/mini.tabline/) as a starting point. It's a great plugin and the one I was using before. The label/tabs implementation on [`tabline.lua`](./lua/unclutter/tabline.lua) is an adaptation of *mini.tabline*'s code.
 
 Also this plugin was not only inspired by [harpoon](https://github.com/ThePrimeagen/harpoon) too, it's the main reason behind it. I was trying to hack harpoon to get this behavior, but didn't like the outcome. The plugin is great but I don't like their tabs implementation and other small stuff. It was there when I realized I could just code my own.
 
