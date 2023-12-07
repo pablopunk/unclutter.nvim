@@ -1,4 +1,4 @@
-# unclutter.nvim (alpha)
+# unclutter.nvim
 
 > Focus on what matters
 
