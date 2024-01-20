@@ -66,21 +66,22 @@ If you want to hack it or create your own mappings, you can use the following fu
 local unclutter = require("unclutter")
 
 -- handle tabline buffers
-unclutter.keep(bufnr)        -- Show buffer in tabline
-unclutter.remove(bufnr)      -- Hide buffer from tabline
-unclutter.toggle(bufnr)      -- Toggle buffer in tabline
-unclutter.keep_current()     -- Show current buffer in tabline
-unclutter.hide_current()     -- Hide current buffer from tabline
-unclutter.toggle_current()   -- Toggle current buffer in tabline
-unclutter.list()             -- List tabline buffers
+unclutter.keep(bufnr)            -- Show buffer in tabline
+unclutter.remove(bufnr)          -- Hide buffer from tabline
+unclutter.toggle(bufnr)          -- Toggle buffer in tabline
+unclutter.keep_current()         -- Show current buffer in tabline
+unclutter.hide_current()         -- Hide current buffer from tabline
+unclutter.toggle_current()       -- Toggle current buffer in tabline
+unclutter.list()                 -- List tabline buffers
+unclutter.close_hidden_buffers() -- Close all hidden buffers
 
 -- navigate tabline buffers (like :bnext and :bprev)
-unclutter.next()             -- Go to next buffer
-unclutter.prev()             -- Go to previous buffer
+unclutter.next()                 -- Go to next buffer
+unclutter.prev()                 -- Go to previous buffer
 
 -- handle plugin (on/off)
-unclutter.enable()           -- Enable unclutter
-unclutter.disable()          -- Disable unclutter
+unclutter.enable()               -- Enable unclutter
+unclutter.disable()              -- Disable unclutter
 ```
 
 Example mappings:

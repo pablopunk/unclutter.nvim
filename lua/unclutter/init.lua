@@ -17,6 +17,13 @@ return {
   hide_current = function()
     tabline.remove_buffer(buffer.current())
   end,
+  close_hidden_buffers = function()
+    for _, buf in ipairs(buffer.all()) do
+      if not tabline.is_buffer_kept(buf) and not buffer.current() == buf then
+        vim.cmd("bdelete " .. buf)
+      end
+    end
+  end,
 
   -- bnext & bprev
   next = tabline.next,
