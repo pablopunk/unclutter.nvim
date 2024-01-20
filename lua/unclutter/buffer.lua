@@ -7,6 +7,16 @@ M.current = function()
   return buf
 end
 
+-- Get the buffer number of the file
+---@param file_path string
+M.number = function(file_path)
+  local ok, buf = pcall(vim.fn.bufnr, file_path)
+  if not ok then
+    return nil
+  end
+  return buf
+end
+
 -- Get the name of buffer
 ---@param buf number
 ---@return string

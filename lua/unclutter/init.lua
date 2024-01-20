@@ -1,6 +1,7 @@
 local unclutter = require "unclutter.unclutter"
 local tabline = require "unclutter.tabline"
 local buffer = require "unclutter.buffer"
+local telescope = require "unclutter.telescope"
 
 return {
   -- handle tabline buffers
@@ -26,6 +27,8 @@ return {
   enable = unclutter.enable,
   disable = unclutter.disable,
 
+  -- telescope.nvim integration
+  telescope = telescope.open_buffers,
   ---@param opts table
   setup = function(opts)
     unclutter.enable(opts)
