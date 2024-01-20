@@ -52,6 +52,7 @@ M.open_buffers = function(opts)
   local actions = require "telescope.actions"
   local previewers = require "telescope.previewers"
   local entry_display = require "telescope.pickers.entry_display"
+  local action_state = require "telescope.actions.state"
 
   pickers
     .new({
@@ -101,8 +102,12 @@ M.open_buffers = function(opts)
       sorter = require("telescope.config").values.generic_sorter {},
       attach_mappings = function(_, map)
         map("i", "<CR>", function(bufnr)
+          local selection = action_state.get_selected_entry()
           actions.close(bufnr)
-          vim.api.nvim_set_current_buf(bufnr)
+          local buffer_to_open = buffer.number(selection.value)
+          if buffer_to_open then
+            vim.api.nvim_set_current_buf(buffer_to_open)
+          end
         end)
         return true
       end,
