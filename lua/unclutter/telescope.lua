@@ -24,7 +24,7 @@ M.open_buffers = function()
   pickers
     .new({
       previewer = previewers.vim_buffer_cat.new {}, -- Use buffer content previewer
-      prompt_title = "Select Buffer (unclutter.nvim)",
+      prompt_title = "unclutter.nvim buffers",
       finder = finders.new_table {
         results = tabline_buffers,
         entry_maker = function(bufnr)
