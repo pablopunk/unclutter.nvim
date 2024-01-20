@@ -3,7 +3,38 @@ local has_icons, icons = pcall(require, "nvim-web-devicons")
 
 local M = {}
 
-M.open_buffers = function()
+---@param full_path string
+---@param type string -- "compact" | "cwd" | "filename"
+---@return string
+local function format(full_path, type)
+  local formatted = ""
+
+  if type == "compact" then
+    local path_segments = vim.split(full_path, "/")
+    if #path_segments > 1 then
+      formatted = path_segments[#path_segments - 1] .. "/" .. path_segments[#path_segments]
+    else
+      formatted = path_segments[#path_segments]
+    end
+  end
+
+  if type == "cwd" then
+    formatted = vim.fn.fnamemodify(full_path, ":~:.") or full_path
+  end
+
+  if type == "filename" then
+    formatted = vim.fn.fnamemodify(full_path, ":t") or full_path
+  end
+
+  return formatted
+end
+
+M.open_buffers = function(opts)
+  opts = opts or {}
+  opts = {
+    format = opts.format or "compact",
+  }
+
   if not pcall(require, "telescope") then
     print "You need to install telescope.nvim if you want to use this integration"
     return
@@ -30,19 +61,11 @@ M.open_buffers = function()
         results = tabline_buffers,
         entry_maker = function(bufnr)
           local full_path = buffer.name(bufnr)
-          local path_segments = vim.split(full_path, "/")
-          local name = ""
-          if #path_segments > 1 then
-            name = path_segments[#path_segments - 1] .. "/" .. path_segments[#path_segments]
-          else
-            name = path_segments[#path_segments]
-          end
-
-          local display = name
+          local display = format(full_path, opts.format)
 
           if has_icons then
-            local file_extension = vim.fn.fnamemodify(name, ":e")
-            local icon, icon_highlight = icons.get_icon(name, file_extension, { default = true })
+            local file_extension = vim.fn.fnamemodify(full_path, ":e")
+            local icon, icon_highlight = icons.get_icon(full_path, file_extension, { default = true })
             icon = icon and (icon .. " ") or ""
 
             local displayer = entry_display.create {
@@ -68,7 +91,7 @@ M.open_buffers = function()
           end
 
           return {
-            value = full_path, -- Pass the full path for previewing
+            value = full_path,
             display = display,
             ordinal = full_path,
             filename = full_path,
