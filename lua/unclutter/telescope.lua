@@ -20,6 +20,7 @@ M.open_buffers = function()
   local finders = require "telescope.finders"
   local actions = require "telescope.actions"
   local previewers = require "telescope.previewers"
+  local entry_display = require "telescope.pickers.entry_display"
 
   pickers
     .new({
@@ -41,15 +42,36 @@ M.open_buffers = function()
 
           if has_icons then
             local file_extension = vim.fn.fnamemodify(name, ":e")
-            local icon = icons.get_icon(name, file_extension, { default = true })
-            local icon_str = icon and (icon .. " ") or ""
-            display = icon_str .. name
+            local icon, icon_highlight = icons.get_icon(name, file_extension, { default = true })
+            icon = icon and (icon .. " ") or ""
+
+            local displayer = entry_display.create {
+              separator = "",
+              items = {
+                { width = 2 },
+                { remaining = true },
+              },
+            }
+            local make_display = function()
+              return displayer {
+                { icon, icon_highlight },
+                display,
+              }
+            end
+
+            return {
+              value = full_path,
+              ordinal = full_path,
+              display = make_display,
+              filename = name,
+            }
           end
 
           return {
             value = full_path, -- Pass the full path for previewing
             display = display,
             ordinal = full_path,
+            filename = name,
           }
         end,
       },
