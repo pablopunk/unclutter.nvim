@@ -23,6 +23,8 @@ A minimal tabline with icons will show:
 
 Every other buffer will be closed at the time you leave it (`BufLeave`).
 
+[🔭 Telescope integration](#telescopenvim-integration)
+
 ## Installation
 
 Use your favorite package manager. Calling the `setup()` function is optional.
