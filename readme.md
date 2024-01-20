@@ -105,6 +105,14 @@ vim.keymap.set("n", "<leader>b", require("unclutter").telescope, { noremap = tru
 
 ![telescope integration](./art/telescope-integration.png)
 
+You can customize the format of the telescope results:
+
+```lua
+unclutter.telescope { format = "compact" } -- DEFAULT: folder/file.js
+unclutter.telescope { format = "cwd" } -- path/folder/file.js
+unclutter.telescope { format = "filename" } -- file.js
+```
+
 ## Inspiration
 
 This behavior was inspired by vscode (sorry), that won't keep your tabs open until you hit save (or double-click the tab).
