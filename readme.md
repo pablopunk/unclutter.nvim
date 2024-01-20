@@ -89,6 +89,30 @@ vim.keymap.set("n", "gp", unclutter.prev, { noremap = true })
 
 I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer will be kept in the tabline whenever I do `<c-s>`.
 
+## `telescope.nvim` integration
+
+If you use [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim), you can use it to list all your `unclutter.nvim` in a floating window:
+
+```lua
+require('unclutter').telescope()
+```
+
+Of course, you can map it to whatever you want:
+
+```lua
+vim.keymap.set("n", "<leader>b", require("unclutter").telescope, { noremap = true })
+```
+
+![telescope integration](./art/telescope-integration.png)
+
+You can customize the format of the telescope results:
+
+```lua
+unclutter.telescope { format = "compact" } -- DEFAULT: folder/file.js
+unclutter.telescope { format = "cwd" } -- path/folder/file.js
+unclutter.telescope { format = "filename" } -- file.js
+```
+
 ## Inspiration
 
 This behavior was inspired by vscode (sorry), that won't keep your tabs open until you hit save (or double-click the tab).
