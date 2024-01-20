@@ -63,7 +63,7 @@ M.open_buffers = function()
               value = full_path,
               ordinal = full_path,
               display = make_display,
-              filename = name,
+              filename = full_path,
             }
           end
 
@@ -71,7 +71,7 @@ M.open_buffers = function()
             value = full_path, -- Pass the full path for previewing
             display = display,
             ordinal = full_path,
-            filename = name,
+            filename = full_path,
           }
         end,
       },
