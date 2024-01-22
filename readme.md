@@ -116,6 +116,14 @@ unclutter.telescope { format = "cwd" } -- path/folder/file.js
 unclutter.telescope { format = "filename" } -- file.js
 ```
 
+If you want to use the telescope integration without the tabline, you can disable it:
+
+```lua
+require('unclutter').setup {
+  tabline = false,
+}
+```
+
 ## Inspiration
 
 This behavior was inspired by vscode (sorry), that won't keep your tabs open until you hit save (or double-click the tab).
