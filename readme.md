@@ -54,6 +54,7 @@ Here's the default configuration:
 ```lua
 require('unclutter').setup {
   clean_after = 3, -- number of tabs to start uncluttering. i.e don't hide until 4 tabs are open
+  tabline = true, -- show tabline. You can set it to false and only use the [telescope integration](#telescopenvim-integration)
 }
 ```
 
@@ -113,6 +114,14 @@ You can customize the format of the telescope results:
 unclutter.telescope { format = "compact" } -- DEFAULT: folder/file.js
 unclutter.telescope { format = "cwd" } -- path/folder/file.js
 unclutter.telescope { format = "filename" } -- file.js
+```
+
+If you want to use the telescope integration without the tabline, you can disable it:
+
+```lua
+require('unclutter').setup {
+  tabline = false,
+}
 ```
 
 ## Inspiration

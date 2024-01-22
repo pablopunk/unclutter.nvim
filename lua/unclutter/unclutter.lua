@@ -13,7 +13,12 @@ M.enabled = false
 ---@param opts Config
 function M.enable(opts)
   config.set(opts)
-  tabline.enable()
+
+  if config.tabline == true then
+    tabline.enable()
+  else
+    tabline.disable()
+  end
 
   if M.enabled == false then -- don't do some stuff twice if setup() is called again
     M.setup_autocmds()
