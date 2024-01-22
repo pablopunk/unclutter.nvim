@@ -54,6 +54,7 @@ Here's the default configuration:
 ```lua
 require('unclutter').setup {
   clean_after = 3, -- number of tabs to start uncluttering. i.e don't hide until 4 tabs are open
+  tabline = true, -- show tabline. You can set it to false and only use the [telescope integration](#telescopenvim-integration)
 }
 ```
 
