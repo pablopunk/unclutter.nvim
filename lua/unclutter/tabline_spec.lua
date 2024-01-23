@@ -1,22 +1,24 @@
 local M = require "unclutter.tabline"
 
 describe("Tabpage section", function()
-  it("creates tabpage section for multiple tabpages", function()
+  before_each(function()
     -- Mock vim.fn.tabpagenr
     ---@diagnostic disable-next-line: duplicate-set-field
     vim.fn.tabpagenr = function(arg)
       if arg == "$" then
-        return 3
-      end -- total tabpages
-      return 2 -- current tabpage
+        return 3 -- total tabpages for the first test, 1 for the second
+      end
+      return 2 -- current tabpage for the first test, 1 for the second
     end
+  end)
 
+  it("creates tabpage section for multiple tabpages", function()
     M.make_tabpage_section()
     assert.are.equal(" Tab 2/3 ", M.tabpage_section)
   end)
 
   it("creates no tabpage section for a single tabpage", function()
-    -- Mock vim.fn.tabpagenr
+    -- Change the mock for a single tabpage scenario
     ---@diagnostic disable-next-line: duplicate-set-field
     vim.fn.tabpagenr = function(arg)
       if arg == "$" then
