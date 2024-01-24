@@ -7,23 +7,17 @@
 ![before-after](./art/before-after-light.png#gh-light-mode-only)
 ![before-after](./art/before-after-dark.png#gh-dark-mode-only)
 
-## Features
 
-You're working on a large project and you're jumping through function definitions and index files that endup cluttering your tabline. *Unclutter.nvim* will:
+- [Installation](#installation)
+  - [Lazy.nvim](#lazynvim)
+  - [Packer.nvim](#packernvim)
+- [Features](#features)
+  - [Only show the buffers you need](#only-show-the-buffers-you-need)
+  - [🔭 Telescope integration]()
+- [Customization](#customization)
+  - [Utils](#utils)
+- [Inspiration](#inspiration)
 
-### Only show the buffers you need
-
-A minimal tabline with icons will show:
-
-- Buffers you made changes to.
-- Buffers visible in any split.
-- Buffers that were open on startup (neovim arguments, restored sessions...).
-- Buffers that are not files (file tree, quickfix, help, terminal...).
-- Buffers that are marked manually (read below).
-
-Every other buffer will be closed at the time you leave it (`BufLeave`).
-
-[🔭 Telescope integration](#telescopenvim-integration)
 
 ## Installation
 
@@ -44,6 +38,54 @@ Use your favorite package manager. Calling the `setup()` function is optional.
 use {
   "pablopunk/unclutter.nvim",
   requires = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
+}
+```
+
+## Features
+
+You're working on a large project and you're jumping through function definitions and index files that endup cluttering your tabline. *Unclutter.nvim* will:
+
+### Only show the buffers you need
+
+A minimal tabline with icons will show:
+
+- Buffers you made changes to.
+- Buffers visible in any split.
+- Buffers that were open on startup (neovim arguments, restored sessions...).
+- Buffers that are not files (file tree, quickfix, help, terminal...).
+- Buffers that are marked manually (read below).
+
+Every other buffer will be closed at the time you leave it (`BufLeave`).
+
+### 🔭 `telescope.nvim` integration
+
+If you use [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim), you can use it to list all your `unclutter.nvim` in a floating window:
+
+```lua
+require('unclutter').telescope()
+```
+
+Of course, you can map it to whatever you want:
+
+```lua
+vim.keymap.set("n", "<leader>b", require("unclutter").telescope, { noremap = true })
+```
+
+![telescope integration](./art/telescope-integration.png)
+
+You can customize the format of the telescope results:
+
+```lua
+unclutter.telescope { format = "compact" } -- DEFAULT: folder/file.js
+unclutter.telescope { format = "cwd" } -- path/folder/file.js
+unclutter.telescope { format = "filename" } -- file.js
+```
+
+If you want to use the telescope integration without the tabline, you can disable it:
+
+```lua
+require('unclutter').setup {
+  tabline = false,
 }
 ```
 
@@ -92,37 +134,6 @@ vim.keymap.set("n", "gp", unclutter.prev, { noremap = true })
 
 I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer will be kept in the tabline whenever I do `<c-s>`.
 
-## `telescope.nvim` integration
-
-If you use [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim), you can use it to list all your `unclutter.nvim` in a floating window:
-
-```lua
-require('unclutter').telescope()
-```
-
-Of course, you can map it to whatever you want:
-
-```lua
-vim.keymap.set("n", "<leader>b", require("unclutter").telescope, { noremap = true })
-```
-
-![telescope integration](./art/telescope-integration.png)
-
-You can customize the format of the telescope results:
-
-```lua
-unclutter.telescope { format = "compact" } -- DEFAULT: folder/file.js
-unclutter.telescope { format = "cwd" } -- path/folder/file.js
-unclutter.telescope { format = "filename" } -- file.js
-```
-
-If you want to use the telescope integration without the tabline, you can disable it:
-
-```lua
-require('unclutter').setup {
-  tabline = false,
-}
-```
 
 ## Inspiration
 
