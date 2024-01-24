@@ -28,7 +28,10 @@ Use your favorite package manager. Calling the `setup()` function is optional.
 ```lua
 {
   "pablopunk/unclutter.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
+  dependencies = {
+    "nvim-tree/nvim-web-devicons"   -- optional, to show icons on tabs
+    "nvim-telescope/telescope.nvim" -- optional, to use the telescope integration
+  },
 }
 ```
 
@@ -37,7 +40,10 @@ Use your favorite package manager. Calling the `setup()` function is optional.
 ```lua
 use {
   "pablopunk/unclutter.nvim",
-  requires = { "nvim-tree/nvim-web-devicons" }, -- optional, to show icons on tabs
+  requires = {
+    "nvim-tree/nvim-web-devicons"   -- optional, to show icons on tabs
+    "nvim-telescope/telescope.nvim" -- optional, to use the telescope integration
+  }
 }
 ```
 
