@@ -51,10 +51,7 @@ jobs:
           nvim --headless +qa 2>>error.log
           nvim --headless "+Lazy! install" +qa 2>>error.log
           nvim --headless +qa 2>>error.log
+          echo
           cat error.log
-          if [[ -z $(cat error.log) ]] ; then
-            echo "Passed."
-          else
-            echo "Failed."
-            exit 1
-          fi
+          echo
+          test -s error.log || exit 1
