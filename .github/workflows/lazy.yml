@@ -46,6 +46,12 @@ jobs:
         run: |
           export PATH="${PWD}/_neovim/bin:${PATH}"
           export VIM="${PWD}/_neovim/share/nvim/runtime"
-          nvim --headless +qa
-          nvim --headless "+Lazy! install" +qa
-          nvim --headless +qa
+          touch error.log
+          nvim --headless +qa 2>error.log
+          nvim --headless "+Lazy! install" +qa 2>error.log
+          nvim --headless +qa 2>error.log
+          [[ -z $(cat error.log) ]] || {
+            echo "Error log:"
+            cat error.log
+            exit 1
+          }
