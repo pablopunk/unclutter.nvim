@@ -38,6 +38,7 @@ jobs:
           echo "Downloading lazy.nvim config"
           mkdir -p ~/.config/nvim/lua/config
           curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/lua/config/lazy.lua" > ~/.config/nvim/lua/config/lazy.lua
+          echo "Downloading pablopunk's unclutter config"
           mkdir -p ~/.config/nvim/lua/config/plugins
           curl -sL "https://raw.githubusercontent.com/pablopunk/dotfiles/master/nvim/lua/pablopunk/plugins/unclutter.lua" > ~/.config/nvim/lua/config/plugins/unclutter.lua
 
