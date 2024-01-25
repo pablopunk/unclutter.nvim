@@ -41,7 +41,7 @@ telescope.open = function(opts)
     return
   end
 
-  local tabline_buffers = require("unclutter").list()
+  local tabline_buffers = require("unclutter.tabline").list()
 
   -- Sort the buffers by last used
   table.sort(tabline_buffers, function(a, b)
