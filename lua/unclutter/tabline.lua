@@ -160,7 +160,7 @@ end
 
 --- Get all buffers to be displayed in the tabline
 ---@return table<number, number>
-function tabline.get_buffers()
+function tabline.list()
   local buffers = {}
   local all_buffers = buffer.all()
 
@@ -183,7 +183,7 @@ end
 ---@return table<number, table>
 function tabline.get_buffer_tabs()
   local tabs = {}
-  for _, buf in ipairs(tabline.get_buffers()) do
+  for _, buf in ipairs(tabline.list()) do
     local tab = { buf_id = buf }
     tab["hl"] = tabline.get_tab_highlight(buf)
     tab["func"] = tabline.get_tab_func(buf)
@@ -213,7 +213,7 @@ end
 
 --- Navigate to next buffer
 function tabline.next()
-  local buffers = tabline.get_buffers()
+  local buffers = tabline.list()
   if buffers == nil or #buffers < 2 then
     print "No more buffers"
     return
@@ -238,7 +238,7 @@ end
 
 --- Navigate to previous buffer
 function tabline.prev()
-  local buffers = tabline.get_buffers()
+  local buffers = tabline.list()
   if buffers == nil or #buffers < 2 then
     print "No more buffers"
     return

@@ -3,36 +3,6 @@ unclutter                                                          *unclutter*
 
 
 
-unclutter.keep()                                            *unclutter.keep()*
-    handle tabline buffers keep buffer in tabline
-
-
-
-unclutter.keep_current()                            *unclutter.keep_current()*
-    keep current buffer in tabline
-
-
-
-unclutter.toggle()                                        *unclutter.toggle()*
-    keep current buffer in tabline
-
-
-
-unclutter.next()                                            *unclutter.next()*
-    bnext & bprev
-
-
-
-unclutter.enable()                                        *unclutter.enable()*
-    handle plugin (on/off)
-
-
-
-unclutter.telescope()                                  *unclutter.telescope()*
-    telescope.nvim integration
-
-
-
 unclutter.setup({opts})                                    *unclutter.setup()*
     Setup function (optional)
 
@@ -100,6 +70,9 @@ buffer.number({file_path})                                   *buffer.number()*
 
     Parameters: ~
         {file_path} (string)
+
+    Return: ~
+        number|nil
 
 
 buffer.name({buf})                                             *buffer.name()*
@@ -343,7 +316,7 @@ tabline.get_tab_label({buf})                         *tabline.get_tab_label()*
         string|nil
 
 
-tabline.get_buffers()                                  *tabline.get_buffers()*
+tabline.list()                                                *tabline.list()*
     Get all buffers to be displayed in the tabline
 
 

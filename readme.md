@@ -68,7 +68,7 @@ Every other buffer will be closed at the time you leave it (`BufLeave`).
 If you use [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim), you can use it to list all your `unclutter.nvim` in a floating window:
 
 ```lua
-require('unclutter').telescope()
+require('unclutter.telescope').open()
 ```
 
 Of course, you can map it to whatever you want:
@@ -112,23 +112,26 @@ If you want to hack it or create your own mappings, you can use the following fu
 
 ```lua
 local unclutter = require("unclutter")
+local tabline = require("unclutter.tabline")
+local buffer = require("unclutter.buffer")
+local plugin = require("unclutter.plugin")
 
--- handle tabline buffers
-unclutter.keep(bufnr)        -- Show buffer in tabline
-unclutter.remove(bufnr)      -- Hide buffer from tabline
-unclutter.toggle(bufnr)      -- Toggle buffer in tabline
-unclutter.keep_current()     -- Show current buffer in tabline
-unclutter.hide_current()     -- Hide current buffer from tabline
-unclutter.toggle_current()   -- Toggle current buffer in tabline
-unclutter.list()             -- List tabline buffers
+tabline.keep_buffer(bufnr)          -- Show buffer in tabline
+tabline.remove_buffer(bufnr)        -- Show buffer in tabline
+tabline.toggle_buffer(bufnr)        -- Toggle buffer in tabline
+tabline.list()                      -- List tabline buffers
+
+-- If you want to get the current buffer you can use:
+local bufnr = buffer.current()
+tabline.keep(bufnr)
 
 -- navigate tabline buffers (like :bnext and :bprev)
-unclutter.next()             -- Go to next buffer
-unclutter.prev()             -- Go to previous buffer
+tabline.next()             -- Go to next buffer
+tabline.prev()             -- Go to previous buffer
 
 -- handle plugin (on/off)
-unclutter.enable()           -- Enable unclutter
-unclutter.disable()          -- Disable unclutter
+plugin.enable()            -- Enable unclutter
+plugin.disable()           -- Disable unclutter
 ```
 
 Example mappings:
@@ -139,6 +142,14 @@ vim.keymap.set("n", "gp", unclutter.prev, { noremap = true })
 ```
 
 I personally have a map to save a file to disk (`<c-s>` will `:w`) so the buffer will be kept in the tabline whenever I do `<c-s>`.
+
+## Help
+
+Of course:
+
+```vim
+:help unclutter
+```
 
 
 ## Inspiration
