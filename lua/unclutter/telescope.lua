@@ -2,7 +2,7 @@ local buffer = require "unclutter.buffer"
 local has_icons, icons = pcall(require, "nvim-web-devicons")
 
 ---@class unclutter.telescope
-local M = {}
+local telescope = {}
 
 ---@param full_path string
 ---@param type string -- "compact" | "cwd" | "filename"
@@ -30,7 +30,7 @@ local function format(full_path, type)
   return formatted
 end
 
-M.open_buffers = function(opts)
+telescope.open_buffers = function(opts)
   opts = opts or {}
   opts = {
     format = opts.format or "compact",
@@ -122,4 +122,4 @@ M.open_buffers = function(opts)
     :find()
 end
 
-return M
+return telescope

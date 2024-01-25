@@ -3,16 +3,16 @@ local buffer = require "unclutter.buffer"
 local tabline = require "unclutter.tabline"
 local config = require "unclutter.config"
 
----@class unclutter.unclutter
-local M = {}
+---@class unclutter.plugin
+local plugin = {}
 
 ---@type number
-M.buf_just_left = nil
-M.enabled = false
+plugin.buf_just_left = nil
+plugin.enabled = false
 
 --- Initialize the plugin
 ---@param opts unclutter.config
-function M.enable(opts)
+function plugin.enable(opts)
   config.set(opts)
 
   if config.tabline == true then
@@ -21,39 +21,43 @@ function M.enable(opts)
     tabline.disable()
   end
 
-  if M.enabled == false then -- don't do some stuff twice if setup() is called again
-    M.setup_autocmds()
+  if plugin.enabled == false then -- don't do some stuff twice if setup() is called again
+    plugin.setup_autocmds()
   end
 
-  M.enabled = true
+  plugin.enabled = true
 end
 
 --- Disable the plugin
-function M.disable()
-  if M.enabled == false then
+function plugin.disable()
+  if plugin.enabled == false then
     return
   end
 
   autocmds.remove_augroup()
   tabline.disable()
 
-  M.enabled = false
+  plugin.enabled = false
 end
 
 --- Setup the autocmds
-function M.setup_autocmds()
+function plugin.setup_autocmds()
   autocmds.on_buf_delete(function(event)
     tabline.remove_buffer(event.buf)
   end)
   autocmds.on_buf_leave(function(event)
-    if M.buffer_should_be_hidden_on_leave(event.buf) then
+    if plugin.buffer_should_be_hidden_on_leave(event.buf) then
       tabline.remove_buffer(event.buf)
     end
-    M.buf_just_left = event.buf
+    plugin.buf_just_left = event.buf
   end)
   autocmds.on_buf_enter(function(event)
-    if M.buf_just_left ~= nil and event.buf ~= M.buf_just_left and not tabline.is_buffer_kept(M.buf_just_left) then
-      tabline.remove_buffer(M.buf_just_left)
+    if
+      plugin.buf_just_left ~= nil
+      and event.buf ~= plugin.buf_just_left
+      and not tabline.is_buffer_kept(plugin.buf_just_left)
+    then
+      tabline.remove_buffer(plugin.buf_just_left)
     end
   end)
   autocmds.on_buf_write_post(function(event)
@@ -67,14 +71,14 @@ function M.setup_autocmds()
     end
   end)
   autocmds.on_vim_enter(function()
-    M.keep_all_buffers()
+    plugin.keep_all_buffers()
   end)
 end
 
 --- Check if buffer should be hidden
 ---@param buf number
 ---@return boolean
-function M.buffer_should_be_hidden_on_leave(buf)
+function plugin.buffer_should_be_hidden_on_leave(buf)
   return not tabline.is_buffer_kept(buf)
     and buffer.current() ~= buf
     and buffer.is_file(buf)
@@ -82,10 +86,10 @@ function M.buffer_should_be_hidden_on_leave(buf)
     and buffer.windows(buf) == 0
 end
 
-function M.keep_all_buffers()
+function plugin.keep_all_buffers()
   for _, buf in ipairs(buffer.all()) do
     tabline.keep_buffer(buf)
   end
 end
 
-return M
+return plugin

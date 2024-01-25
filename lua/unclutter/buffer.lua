@@ -1,16 +1,16 @@
 ---@class unclutter.buffer
-local M = {}
+local buffer = {}
 
 --- Get the current buffer
 ---@return number
-M.current = function()
+buffer.current = function()
   local _, buf = pcall(vim.api.nvim_get_current_buf)
   return buf
 end
 
 --- Get the buffer number of the file
 ---@param file_path string
-M.number = function(file_path)
+buffer.number = function(file_path)
   local ok, buf = pcall(vim.fn.bufnr, file_path)
   if not ok then
     return nil
@@ -21,7 +21,7 @@ end
 --- Get the name of buffer
 ---@param buf number
 ---@return string
-M.name = function(buf)
+buffer.name = function(buf)
   local ok, name = pcall(vim.api.nvim_buf_get_name, buf)
   if not ok then
     return ""
@@ -32,7 +32,7 @@ end
 --- Get the buftype of buffer
 ---@param buf number
 ---@return string
-M.type = function(buf)
+buffer.type = function(buf)
   local ok, buftype = pcall(vim.api.nvim_get_option_value, "buftype", { buf = buf })
   if not ok then
     return "errored"
@@ -43,14 +43,14 @@ end
 --- Delete buffer
 ---@param buf number
 ---@return boolean
-M.delete = function(buf)
+buffer.delete = function(buf)
   return pcall(vim.api.nvim_buf_delete, buf, { force = true })
 end
 
 --- Unload buffer
 ---@param buf number
 ---@return boolean
-M.unload = function(buf)
+buffer.unload = function(buf)
   return pcall(function()
     vim.cmd("silent! bunload " .. buf)
   end, buf)
@@ -59,14 +59,14 @@ end
 --- Check if buffer is a file
 ---@param buf number
 ---@return boolean
-M.is_file = function(buf)
-  return M.type(buf) == "" and M.name(buf) ~= ""
+buffer.is_file = function(buf)
+  return buffer.type(buf) == "" and buffer.name(buf) ~= ""
 end
 
 --- Return number of windows where buffer is open
 ---@param buf number
 ---@return number
-M.windows = function(buf)
+buffer.windows = function(buf)
   local ok, buffer_windows = pcall(vim.fn.win_findbuf, buf)
   if not ok then
     return 0
@@ -77,7 +77,7 @@ end
 --- Check if buffer is visible in current tab
 ---@param buf number
 ---@return boolean
-M.is_visible = function(buf)
+buffer.is_visible = function(buf)
   local ok, tab_buffers = pcall(vim.fn.tabpagebuflist)
   if not ok then
     return false
@@ -88,7 +88,7 @@ end
 --- Check if buffer is valid
 ---@param buf number
 ---@return boolean
-M.is_valid = function(buf)
+buffer.is_valid = function(buf)
   local ok, valid = pcall(vim.api.nvim_buf_is_valid, buf)
   return ok and valid
 end
@@ -96,7 +96,7 @@ end
 --- Check if buffer is loaded
 ---@param buf number
 ---@return boolean
-M.is_loaded = function(buf)
+buffer.is_loaded = function(buf)
   local ok, loaded = pcall(vim.api.nvim_buf_is_loaded, buf)
   return ok and loaded
 end
@@ -104,16 +104,16 @@ end
 --- Check if buffer is listed
 ---@param buf number
 ---@return boolean
-M.listed = function(buf)
+buffer.listed = function(buf)
   return vim.bo[buf].buflisted
 end
 
 --- Return all listed buffers + the current buffer (even if it's not listed)
 ---@return table
-M.all = function()
+buffer.all = function()
   local buf_list = vim.api.nvim_list_bufs()
-  local listed_buffers = vim.tbl_filter(M.listed, buf_list)
-  local current_buf = M.current()
+  local listed_buffers = vim.tbl_filter(buffer.listed, buf_list)
+  local current_buf = buffer.current()
 
   -- add current buffer to list if it's not listed
   if not vim.tbl_contains(listed_buffers, current_buf) then
@@ -123,4 +123,4 @@ M.all = function()
   return listed_buffers
 end
 
-return M
+return buffer
