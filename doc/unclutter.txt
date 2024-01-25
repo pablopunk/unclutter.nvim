@@ -3,37 +3,37 @@ unclutter                                                          *unclutter*
 
 
 
-M.keep()                                                            *M.keep()*
+unclutter.keep()                                            *unclutter.keep()*
     handle tabline buffers keep buffer in tabline
 
 
 
-M.keep_current()                                            *M.keep_current()*
+unclutter.keep_current()                            *unclutter.keep_current()*
     keep current buffer in tabline
 
 
 
-M.toggle()                                                        *M.toggle()*
+unclutter.toggle()                                        *unclutter.toggle()*
     keep current buffer in tabline
 
 
 
-M.next()                                                            *M.next()*
+unclutter.next()                                            *unclutter.next()*
     bnext & bprev
 
 
 
-M.enable()                                                        *M.enable()*
+unclutter.enable()                                        *unclutter.enable()*
     handle plugin (on/off)
 
 
 
-M.telescope()                                                  *M.telescope()*
+unclutter.telescope()                                  *unclutter.telescope()*
     telescope.nvim integration
 
 
 
-M.setup({opts})                                                    *M.setup()*
+unclutter.setup({opts})                                    *unclutter.setup()*
     Setup function (optional)
 
 
@@ -51,7 +51,7 @@ unclutter.config                                            *unclutter.config*
 
 
 
-M.set({opts})                                                        *M.set()*
+config.set({opts})                                              *config.set()*
     Set config values
 
 
@@ -65,7 +65,7 @@ unclutter.buffer                                            *unclutter.buffer*
 
 
 
-M.current()                                                      *M.current()*
+buffer.current()                                            *buffer.current()*
     Get the current buffer
 
 
@@ -73,7 +73,7 @@ M.current()                                                      *M.current()*
         number
 
 
-M.number({file_path})                                             *M.number()*
+buffer.number({file_path})                                   *buffer.number()*
     Get the buffer number of the file
 
 
@@ -81,7 +81,7 @@ M.number({file_path})                                             *M.number()*
         {file_path} (string)
 
 
-M.name({buf})                                                       *M.name()*
+buffer.name({buf})                                             *buffer.name()*
     Get the name of buffer
 
 
@@ -92,7 +92,7 @@ M.name({buf})                                                       *M.name()*
         string
 
 
-M.type({buf})                                                       *M.type()*
+buffer.type({buf})                                             *buffer.type()*
     Get the buftype of buffer
 
 
@@ -103,7 +103,7 @@ M.type({buf})                                                       *M.type()*
         string
 
 
-M.delete({buf})                                                   *M.delete()*
+buffer.delete({buf})                                         *buffer.delete()*
     Delete buffer
 
 
@@ -114,7 +114,7 @@ M.delete({buf})                                                   *M.delete()*
         boolean
 
 
-M.unload({buf})                                                   *M.unload()*
+buffer.unload({buf})                                         *buffer.unload()*
     Unload buffer
 
 
@@ -125,7 +125,7 @@ M.unload({buf})                                                   *M.unload()*
         boolean
 
 
-M.is_file({buf})                                                 *M.is_file()*
+buffer.is_file({buf})                                       *buffer.is_file()*
     Check if buffer is a file
 
 
@@ -136,7 +136,7 @@ M.is_file({buf})                                                 *M.is_file()*
         boolean
 
 
-M.windows({buf})                                                 *M.windows()*
+buffer.windows({buf})                                       *buffer.windows()*
     Return number of windows where buffer is open
 
 
@@ -147,7 +147,7 @@ M.windows({buf})                                                 *M.windows()*
         number
 
 
-M.is_visible({buf})                                           *M.is_visible()*
+buffer.is_visible({buf})                                 *buffer.is_visible()*
     Check if buffer is visible in current tab
 
 
@@ -158,7 +158,7 @@ M.is_visible({buf})                                           *M.is_visible()*
         boolean
 
 
-M.is_valid({buf})                                               *M.is_valid()*
+buffer.is_valid({buf})                                     *buffer.is_valid()*
     Check if buffer is valid
 
 
@@ -169,7 +169,7 @@ M.is_valid({buf})                                               *M.is_valid()*
         boolean
 
 
-M.is_loaded({buf})                                             *M.is_loaded()*
+buffer.is_loaded({buf})                                   *buffer.is_loaded()*
     Check if buffer is loaded
 
 
@@ -180,7 +180,7 @@ M.is_loaded({buf})                                             *M.is_loaded()*
         boolean
 
 
-M.listed({buf})                                                   *M.listed()*
+buffer.listed({buf})                                         *buffer.listed()*
     Check if buffer is listed
 
 
@@ -191,7 +191,7 @@ M.listed({buf})                                                   *M.listed()*
         boolean
 
 
-M.all()                                                              *M.all()*
+buffer.all()                                                    *buffer.all()*
     Return all listed buffers + the current buffer (even if it's not listed)
 
 
@@ -205,32 +205,35 @@ unclutter.tabline                                          *unclutter.tabline*
 
 
 
-M.buffers_to_keep()                                      *M.buffers_to_keep()*
+tabline.buffers_to_keep()                          *tabline.buffers_to_keep()*
 
 
 
-M.enable()                                                        *M.enable()*
+tabline.enable()                                            *tabline.enable()*
     Set vim options and format tabline
 
 
 
-M.disable()                                                      *M.disable()*
+tabline.disable()                                          *tabline.disable()*
     Disable tabline
 
 
 
-M.make_tabpage_section()                            *M.make_tabpage_section()*
+tabline.make_tabpage_section()                *tabline.make_tabpage_section()*
     Update tabpage section string Copied from
     https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua
 
 
 
-M.remove_buffer()                                          *M.remove_buffer()*
+tabline.remove_buffer({bufnr})                       *tabline.remove_buffer()*
     Remove a buffer from the list
 
 
+    Parameters: ~
+        {bufnr} (number)
 
-M.keep_buffer({bufnr})                                       *M.keep_buffer()*
+
+tabline.keep_buffer({bufnr})                           *tabline.keep_buffer()*
     Add a buffer to the list
 
 
@@ -238,7 +241,7 @@ M.keep_buffer({bufnr})                                       *M.keep_buffer()*
         {bufnr} (number)
 
 
-M.toggle_buffer({bufnr})                                   *M.toggle_buffer()*
+tabline.toggle_buffer({bufnr})                       *tabline.toggle_buffer()*
     Toggle a buffer in the buffer list
 
 
@@ -246,13 +249,13 @@ M.toggle_buffer({bufnr})                                   *M.toggle_buffer()*
         {bufnr} (number)
 
 
-M.create_clickable_tab_fn()                      *M.create_clickable_tab_fn()*
+tabline.create_clickable_tab_fn()          *tabline.create_clickable_tab_fn()*
     Create the function for switching buffers with the mouse Copied from
     https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua#L185
 
 
 
-M.is_buffer_hidden({bufnr})                             *M.is_buffer_hidden()*
+tabline.is_buffer_hidden({bufnr})                 *tabline.is_buffer_hidden()*
     Is buffer hidden?
 
 
@@ -263,7 +266,7 @@ M.is_buffer_hidden({bufnr})                             *M.is_buffer_hidden()*
         boolean
 
 
-M.is_buffer_kept({bufnr})                                 *M.is_buffer_kept()*
+tabline.is_buffer_kept({bufnr})                     *tabline.is_buffer_kept()*
     Is buffer shown?
 
 
@@ -274,7 +277,7 @@ M.is_buffer_kept({bufnr})                                 *M.is_buffer_kept()*
         boolean
 
 
-M.get_tab_highlight({buf})                             *M.get_tab_highlight()*
+tabline.get_tab_highlight({buf})                 *tabline.get_tab_highlight()*
     Get the highlight group for a buffer
 
 
@@ -282,7 +285,7 @@ M.get_tab_highlight({buf})                             *M.get_tab_highlight()*
         {buf} (number)
 
 
-M.get_tab_func({buf})                                       *M.get_tab_func()*
+tabline.get_tab_func({buf})                           *tabline.get_tab_func()*
     Get the tab's clickable action
 
 
@@ -290,7 +293,7 @@ M.get_tab_func({buf})                                       *M.get_tab_func()*
         {buf} (number)
 
 
-M.get_tab_label({buf})                                     *M.get_tab_label()*
+tabline.get_tab_label({buf})                         *tabline.get_tab_label()*
     Get the tab's label
 
 
@@ -301,7 +304,7 @@ M.get_tab_label({buf})                                     *M.get_tab_label()*
         string|nil
 
 
-M.get_buffers()                                              *M.get_buffers()*
+tabline.get_buffers()                                  *tabline.get_buffers()*
     Get all buffers to be displayed in the tabline
 
 
@@ -309,7 +312,7 @@ M.get_buffers()                                              *M.get_buffers()*
         table<number, number>
 
 
-M.get_buffer_tabs()                                      *M.get_buffer_tabs()*
+tabline.get_buffer_tabs()                          *tabline.get_buffer_tabs()*
     Get all tabs
 
 
@@ -317,65 +320,19 @@ M.get_buffer_tabs()                                      *M.get_buffer_tabs()*
         table<number, table>
 
 
-M.get_tabline_string()                                *M.get_tabline_string()*
+tabline.get_tabline_string()                    *tabline.get_tabline_string()*
     Get the tabline string
 
 
 
-M.next()                                                            *M.next()*
+tabline.next()                                                *tabline.next()*
     Navigate to next buffer
 
 
 
-M.prev()                                                            *M.prev()*
+tabline.prev()                                                *tabline.prev()*
     Navigate to previous buffer
 
 
 
 
-================================================================================
-unclutter.unclutter                                      *unclutter.unclutter*
-
-
-
-M.buf_just_left()                                          *M.buf_just_left()*
-
-
-
-M.enable({opts})                                                  *M.enable()*
-    Initialize the plugin
-
-
-    Parameters: ~
-        {opts} (unclutter.config)
-
-
-M.disable()                                                      *M.disable()*
-    Disable the plugin
-
-
-
-M.setup_autocmds()                                        *M.setup_autocmds()*
-    Setup the autocmds
-
-
-
-M.buffer_should_be_hidden_on_leave({buf}) *M.buffer_should_be_hidden_on_leave()*
-    Check if buffer should be hidden
-
-
-    Parameters: ~
-        {buf} (number)
-
-    Return: ~
-        boolean
-
-
-
-================================================================================
-unclutter.telescope                                      *unclutter.telescope*
-
-
-
-
- vim:tw=78:ts=8:ft=help:norl:
