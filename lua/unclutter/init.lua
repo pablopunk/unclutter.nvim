@@ -3,34 +3,50 @@ local tabline = require "unclutter.tabline"
 local buffer = require "unclutter.buffer"
 local telescope = require "unclutter.telescope"
 
-return {
-  -- handle tabline buffers
-  keep = tabline.keep_buffer,
-  keep_current = function()
-    tabline.keep_buffer(buffer.current())
-  end,
-  toggle = tabline.toggle_buffer,
-  toggle_current = function()
-    tabline.toggle_buffer(buffer.current())
-  end,
-  list = tabline.get_buffers,
-  hide = tabline.hide_buffer,
-  hide_current = function()
-    tabline.remove_buffer(buffer.current())
-  end,
+---@class unclutter
+local M = {}
 
-  -- bnext & bprev
-  next = tabline.next,
-  prev = tabline.prev,
+--- handle tabline buffers
+--- keep buffer in tabline
+M.keep = tabline.keep_buffer
 
-  -- handle plugin (on/off)
-  enable = unclutter.enable,
-  disable = unclutter.disable,
+--- keep current buffer in tabline
+function M.keep_current()
+  tabline.keep_buffer(buffer.current())
+end
 
-  -- telescope.nvim integration
-  telescope = telescope.open_buffers,
-  ---@param opts table
-  setup = function(opts)
-    unclutter.enable(opts)
-  end,
-}
+--- keep current buffer in tabline
+M.toggle = tabline.toggle_buffer
+
+function M.toggle_current()
+  tabline.toggle_buffer(buffer.current())
+end
+
+M.list = tabline.get_buffers
+
+function M.hide()
+  tabline.hide_buffer()
+end
+
+function M.hide_current()
+  tabline.remove_buffer(buffer.current())
+end
+
+--- bnext & bprev
+M.next = tabline.next
+M.prev = tabline.prev
+
+--- handle plugin (on/off)
+M.enable = unclutter.enable
+M.disable = unclutter.disable
+
+--- telescope.nvim integration
+M.telescope = telescope.open_buffers
+
+--- Setup function (optional)
+---@param opts unclutter.config
+function M.setup(opts)
+  unclutter.enable(opts)
+end
+
+return M

@@ -2,6 +2,7 @@ local buffer = require "unclutter.buffer"
 local has_icons, icons = pcall(require, "nvim-web-devicons")
 local config = require "unclutter.config"
 
+---@class unclutter.tabline
 local M = {}
 
 ---@type table<number, boolean>
@@ -9,7 +10,7 @@ M.buffers_to_keep = {}
 M.tabpage_section = ""
 M.tablineat = vim.fn.has "tablineat"
 
--- Set vim options and format tabline
+--- Set vim options and format tabline
 function M.enable()
   vim.o.showtabline = 2
   vim.o.hidden = true
@@ -18,7 +19,7 @@ function M.enable()
   vim.o.tabline = [[%!luaeval('require("unclutter.tabline").get_tabline_string()')]]
 end
 
--- Disable tabline
+--- Disable tabline
 function M.disable()
   vim.o.showtabline = 0
   vim.o.tabline = ""
@@ -33,8 +34,8 @@ function M.create_highlight_groups()
   vim.api.nvim_set_hl(0, "UnclutterTablineFill", { link = "Normal", default = true })
 end
 
--- Update tabpage section string
--- Copied from https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua
+--- Update tabpage section string
+--- Copied from https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua
 function M.make_tabpage_section()
   local n_tabpages = vim.fn.tabpagenr "$"
   if n_tabpages == 1 then
@@ -46,12 +47,12 @@ function M.make_tabpage_section()
   M.tabpage_section = (" Tab %s/%s "):format(cur_tabpagenr, n_tabpages)
 end
 
--- Remove a buffer from the list
+--- Remove a buffer from the list
 function M.remove_buffer(bufnr)
   M.buffers_to_keep[bufnr] = nil
 end
 
--- Add a buffer to the list
+--- Add a buffer to the list
 ---@param bufnr number
 function M.keep_buffer(bufnr)
   if bufnr == nil then
@@ -60,7 +61,7 @@ function M.keep_buffer(bufnr)
   M.buffers_to_keep[bufnr] = true
 end
 
--- Toggle a buffer in the buffer list
+--- Toggle a buffer in the buffer list
 ---@param bufnr number
 function M.toggle_buffer(bufnr)
   if M.is_buffer_kept(bufnr) then
@@ -70,8 +71,8 @@ function M.toggle_buffer(bufnr)
   end
 end
 
--- Create the function for switching buffers with the mouse
--- Copied from https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua#L185
+--- Create the function for switching buffers with the mouse
+--- Copied from https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua#L185
 function M.create_clickable_tab_fn()
   vim.cmd(
     [[function! UnclutterSwitchBuffer(buf_id, clicks, button, mod)
@@ -81,21 +82,21 @@ function M.create_clickable_tab_fn()
   )
 end
 
--- Is buffer hidden?
+--- Is buffer hidden?
 ---@param bufnr number
 ---@return boolean
 function M.is_buffer_hidden(bufnr)
   return M.buffers_to_keep[bufnr] == nil
 end
 
--- Is buffer shown?
+--- Is buffer shown?
 ---@param bufnr number
 ---@return boolean
 function M.is_buffer_kept(bufnr)
   return M.buffers_to_keep[bufnr] == true
 end
 
--- Get the highlight group for a buffer
+--- Get the highlight group for a buffer
 ---@param buf number
 function M.get_tab_highlight(buf)
   local hl
@@ -109,10 +110,10 @@ function M.get_tab_highlight(buf)
   return string.format("%%#Unclutter%s#", hl)
 end
 
--- Get the tab's clickable action
+--- Get the tab's clickable action
 ---@param buf number
 function M.get_tab_func(buf)
-  -- Tab's clickable action (if supported)
+  --- Tab's clickable action (if supported)
   if M.tablineat > 0 then
     return string.format("%%%d@UnclutterSwitchBuffer@", buf)
   else
@@ -120,7 +121,7 @@ function M.get_tab_func(buf)
   end
 end
 
--- Get the tab's label
+--- Get the tab's label
 ---@param buf number
 ---@return string|nil
 function M.get_tab_label(buf)
@@ -153,7 +154,7 @@ function M.get_tab_label(buf)
   return string.format(" %s ", label)
 end
 
--- Get all buffers to be displayed in the tabline
+--- Get all buffers to be displayed in the tabline
 ---@return table<number, number>
 function M.get_buffers()
   local buffers = {}
@@ -174,7 +175,7 @@ function M.get_buffers()
   return buffers
 end
 
--- Get all tabs
+--- Get all tabs
 ---@return table<number, table>
 function M.get_buffer_tabs()
   local tabs = {}
@@ -191,7 +192,7 @@ function M.get_buffer_tabs()
   return tabs
 end
 
--- Get the tabline string
+--- Get the tabline string
 function M.get_tabline_string()
   M.make_tabpage_section()
 
@@ -206,7 +207,7 @@ function M.get_tabline_string()
   return buffers_and_tabs
 end
 
--- Navigate to next buffer
+--- Navigate to next buffer
 function M.next()
   local buffers = M.get_buffers()
   if buffers == nil or #buffers < 2 then
@@ -231,7 +232,7 @@ function M.next()
   end
 end
 
--- Navigate to previous buffer
+--- Navigate to previous buffer
 function M.prev()
   local buffers = M.get_buffers()
   if buffers == nil or #buffers < 2 then

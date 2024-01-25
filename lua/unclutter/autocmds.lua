@@ -1,3 +1,4 @@
+---@class unclutter.autocmds
 local M = {}
 local augroup_name = "Unclutter"
 local augroup = vim.api.nvim_create_augroup(augroup_name, {})

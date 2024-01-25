@@ -1,0 +1,381 @@
+================================================================================
+unclutter                                                          *unclutter*
+
+
+
+M.keep()                                                            *M.keep()*
+    handle tabline buffers keep buffer in tabline
+
+
+
+M.keep_current()                                            *M.keep_current()*
+    keep current buffer in tabline
+
+
+
+M.toggle()                                                        *M.toggle()*
+    keep current buffer in tabline
+
+
+
+M.next()                                                            *M.next()*
+    bnext & bprev
+
+
+
+M.enable()                                                        *M.enable()*
+    handle plugin (on/off)
+
+
+
+M.telescope()                                                  *M.telescope()*
+    telescope.nvim integration
+
+
+
+M.setup({opts})                                                    *M.setup()*
+    Setup function (optional)
+
+
+    Parameters: ~
+        {opts} (unclutter.config)
+
+
+
+================================================================================
+unclutter.config                                            *unclutter.config*
+
+
+
+unclutter.config                                            *unclutter.config*
+
+
+
+M.set({opts})                                                        *M.set()*
+    Set config values
+
+
+    Parameters: ~
+        {opts} (unclutter.config)
+
+
+
+================================================================================
+unclutter.buffer                                            *unclutter.buffer*
+
+
+
+M.current()                                                      *M.current()*
+    Get the current buffer
+
+
+    Return: ~
+        number
+
+
+M.number({file_path})                                             *M.number()*
+    Get the buffer number of the file
+
+
+    Parameters: ~
+        {file_path} (string)
+
+
+M.name({buf})                                                       *M.name()*
+    Get the name of buffer
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        string
+
+
+M.type({buf})                                                       *M.type()*
+    Get the buftype of buffer
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        string
+
+
+M.delete({buf})                                                   *M.delete()*
+    Delete buffer
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.unload({buf})                                                   *M.unload()*
+    Unload buffer
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.is_file({buf})                                                 *M.is_file()*
+    Check if buffer is a file
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.windows({buf})                                                 *M.windows()*
+    Return number of windows where buffer is open
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        number
+
+
+M.is_visible({buf})                                           *M.is_visible()*
+    Check if buffer is visible in current tab
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.is_valid({buf})                                               *M.is_valid()*
+    Check if buffer is valid
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.is_loaded({buf})                                             *M.is_loaded()*
+    Check if buffer is loaded
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.listed({buf})                                                   *M.listed()*
+    Check if buffer is listed
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+M.all()                                                              *M.all()*
+    Return all listed buffers + the current buffer (even if it's not listed)
+
+
+    Return: ~
+        table
+
+
+
+================================================================================
+unclutter.tabline                                          *unclutter.tabline*
+
+
+
+M.buffers_to_keep()                                      *M.buffers_to_keep()*
+
+
+
+M.enable()                                                        *M.enable()*
+    Set vim options and format tabline
+
+
+
+M.disable()                                                      *M.disable()*
+    Disable tabline
+
+
+
+M.make_tabpage_section()                            *M.make_tabpage_section()*
+    Update tabpage section string Copied from
+    https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua
+
+
+
+M.remove_buffer()                                          *M.remove_buffer()*
+    Remove a buffer from the list
+
+
+
+M.keep_buffer({bufnr})                                       *M.keep_buffer()*
+    Add a buffer to the list
+
+
+    Parameters: ~
+        {bufnr} (number)
+
+
+M.toggle_buffer({bufnr})                                   *M.toggle_buffer()*
+    Toggle a buffer in the buffer list
+
+
+    Parameters: ~
+        {bufnr} (number)
+
+
+M.create_clickable_tab_fn()                      *M.create_clickable_tab_fn()*
+    Create the function for switching buffers with the mouse Copied from
+    https://github.com/echasnovski/mini.tabline/blob/main/lua/mini/tabline.lua#L185
+
+
+
+M.is_buffer_hidden({bufnr})                             *M.is_buffer_hidden()*
+    Is buffer hidden?
+
+
+    Parameters: ~
+        {bufnr} (number)
+
+    Return: ~
+        boolean
+
+
+M.is_buffer_kept({bufnr})                                 *M.is_buffer_kept()*
+    Is buffer shown?
+
+
+    Parameters: ~
+        {bufnr} (number)
+
+    Return: ~
+        boolean
+
+
+M.get_tab_highlight({buf})                             *M.get_tab_highlight()*
+    Get the highlight group for a buffer
+
+
+    Parameters: ~
+        {buf} (number)
+
+
+M.get_tab_func({buf})                                       *M.get_tab_func()*
+    Get the tab's clickable action
+
+
+    Parameters: ~
+        {buf} (number)
+
+
+M.get_tab_label({buf})                                     *M.get_tab_label()*
+    Get the tab's label
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        string|nil
+
+
+M.get_buffers()                                              *M.get_buffers()*
+    Get all buffers to be displayed in the tabline
+
+
+    Return: ~
+        table<number, number>
+
+
+M.get_buffer_tabs()                                      *M.get_buffer_tabs()*
+    Get all tabs
+
+
+    Return: ~
+        table<number, table>
+
+
+M.get_tabline_string()                                *M.get_tabline_string()*
+    Get the tabline string
+
+
+
+M.next()                                                            *M.next()*
+    Navigate to next buffer
+
+
+
+M.prev()                                                            *M.prev()*
+    Navigate to previous buffer
+
+
+
+
+================================================================================
+unclutter.unclutter                                      *unclutter.unclutter*
+
+
+
+M.buf_just_left()                                          *M.buf_just_left()*
+
+
+
+M.enable({opts})                                                  *M.enable()*
+    Initialize the plugin
+
+
+    Parameters: ~
+        {opts} (unclutter.config)
+
+
+M.disable()                                                      *M.disable()*
+    Disable the plugin
+
+
+
+M.setup_autocmds()                                        *M.setup_autocmds()*
+    Setup the autocmds
+
+
+
+M.buffer_should_be_hidden_on_leave({buf}) *M.buffer_should_be_hidden_on_leave()*
+    Check if buffer should be hidden
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
+
+
+
+================================================================================
+unclutter.telescope                                      *unclutter.telescope*
+
+
+
+
+ vim:tw=78:ts=8:ft=help:norl:
