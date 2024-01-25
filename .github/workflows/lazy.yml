@@ -40,7 +40,7 @@ jobs:
           curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/init.lua" > ~/.config/nvim/init.lua
           curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/lua/config/lazy.lua" > ~/.config/nvim/lua/config/lazy.lua
           echo "Downloading pablopunk's unclutter config"
-          mkdir -p ~/.config/nvim/lua/config/plugins
+          mkdir -p ~/.config/nvim/lua/plugins
           curl -sL "https://raw.githubusercontent.com/pablopunk/dotfiles/master/nvim/lua/pablopunk/plugins/unclutter.lua" > ~/.config/nvim/lua/config/plugins/unclutter.lua
 
       - name: Run tests
