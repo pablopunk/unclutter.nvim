@@ -3,17 +3,18 @@ local docgen = require "docgen"
 local docs = {}
 
 docs.test = function()
-  -- Filepaths that should generate docs
   local input_files = {
-    "./lua/unclutter/init.lua",
-    "./lua/unclutter/plugin.lua",
-    "./lua/unclutter/buffer.lua",
-    "./lua/unclutter/config.lua",
-    "./lua/unclutter/tabline.lua",
-    "./lua/unclutter/telescope.lua",
+    "./lua/unclutter/init.lua", -- force this to be first
   }
 
-  -- Output file
+  local files = vim.fn.glob("./lua/unclutter/*.lua", true, 1)
+
+  for _, file in ipairs(files) do
+    if not file:match "_spec" and not vim.tbl_contains(input_files, file) then
+      table.insert(input_files, file)
+    end
+  end
+
   local output_file = "./doc/unclutter.txt"
   local output_file_handle = io.open(output_file, "w")
   assert(output_file_handle, "Could not open " .. output_file)
