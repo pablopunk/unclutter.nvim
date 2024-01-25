@@ -74,7 +74,7 @@ require('unclutter.telescope').open()
 Of course, you can map it to whatever you want:
 
 ```lua
-vim.keymap.set("n", "<leader>b", require("unclutter").telescope, { noremap = true })
+vim.keymap.set("n", "<leader>b", require("unclutter.telescope").open, { noremap = true })
 ```
 
 ![telescope integration](./art/telescope-integration.png)
