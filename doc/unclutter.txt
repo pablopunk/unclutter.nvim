@@ -13,41 +13,85 @@ unclutter.setup({opts})                                    *unclutter.setup()*
 
 
 ================================================================================
-unclutter.plugin                                            *unclutter.plugin*
+unclutter.autocmds                                        *unclutter.autocmds*
 
 
 
-plugin.buf_just_left()                                *plugin.buf_just_left()*
+autocmds.remove_augroup()                          *autocmds.remove_augroup()*
+    Remove the created augroup.
 
 
 
-plugin.enable({opts})                                        *plugin.enable()*
-    Initialize the plugin
-
-
-    Parameters: ~
-        {opts} (unclutter.config)
-
-
-plugin.disable()                                            *plugin.disable()*
-    Disable the plugin
-
-
-
-plugin.setup_autocmds()                              *plugin.setup_autocmds()*
-    Setup the autocmds
-
-
-
-plugin.buffer_should_be_hidden_on_leave({buf}) *plugin.buffer_should_be_hidden_on_leave()*
-    Check if buffer should be hidden
+autocmds.on_buf_leave({callback})                    *autocmds.on_buf_leave()*
+    Create an autocmd for the BufLeave event.
 
 
     Parameters: ~
-        {buf} (number)
+        {callback} (function)  The callback function to be executed.
 
-    Return: ~
-        boolean
+
+autocmds.on_buf_delete({callback})                  *autocmds.on_buf_delete()*
+    Create an autocmd for the BufDelete event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_buf_enter({callback})                    *autocmds.on_buf_enter()*
+    Create an autocmd for the BufEnter event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_buf_write_post({callback})          *autocmds.on_buf_write_post()*
+    Create an autocmd for the BufWritePost event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_vim_enter({callback})                    *autocmds.on_vim_enter()*
+    Create an autocmd for the VimEnter event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_insert_enter({callback})              *autocmds.on_insert_enter()*
+    Create an autocmd for the InsertEnter event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_buf_modified_set({callback})      *autocmds.on_buf_modified_set()*
+    Create an autocmd for the BufModifiedSet event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_win_enter({callback})                    *autocmds.on_win_enter()*
+    Create an autocmd for the WinEnter event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
+
+
+autocmds.on_win_new({callback})                        *autocmds.on_win_new()*
+    Create an autocmd for the WinNew event.
+
+
+    Parameters: ~
+        {callback} (function)  The callback function to be executed.
 
 
 
@@ -209,6 +253,45 @@ config.set({opts})                                              *config.set()*
 
     Parameters: ~
         {opts} (unclutter.config)
+
+
+
+================================================================================
+unclutter.plugin                                            *unclutter.plugin*
+
+
+
+plugin.buf_just_left()                                *plugin.buf_just_left()*
+
+
+
+plugin.enable({opts})                                        *plugin.enable()*
+    Initialize the plugin
+
+
+    Parameters: ~
+        {opts} (unclutter.config)
+
+
+plugin.disable()                                            *plugin.disable()*
+    Disable the plugin
+
+
+
+plugin.setup_autocmds()                              *plugin.setup_autocmds()*
+    Setup the autocmds
+
+
+
+plugin.buffer_should_be_hidden_on_leave({buf}) *plugin.buffer_should_be_hidden_on_leave()*
+    Check if buffer should be hidden
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
 
 
 
