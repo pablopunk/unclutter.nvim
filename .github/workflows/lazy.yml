@@ -36,7 +36,7 @@ jobs:
             curl -sL "https://github.com/neovim/neovim/releases/download/${{ matrix.rev }}" | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
           }
           echo "Downloading lazy.nvim config"
-          mkdir -p ~/.config/nvim/lua/config"
+          mkdir -p ~/.config/nvim/lua/config
           curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/lua/config/lazy.lua" > ~/.config/nvim/lua/config/lazy.lua
           mkdir -p ~/.config/nvim/lua/config/plugins"
           curl -sL "https://raw.githubusercontent.com/pablopunk/dotfiles/master/nvim/lua/pablopunk/plugins/unclutter.lua" > ~/.config/nvim/lua/config/plugins/unclutter.lua
