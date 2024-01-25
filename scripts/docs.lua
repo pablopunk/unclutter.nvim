@@ -6,17 +6,12 @@ docs.test = function()
   -- Filepaths that should generate docs
   local input_files = {
     "./lua/unclutter/init.lua",
-    "./lua/unclutter/config.lua",
-    "./lua/unclutter/unclutter.lua",
+    "./lua/unclutter/plugin.lua",
     "./lua/unclutter/buffer.lua",
+    "./lua/unclutter/config.lua",
     "./lua/unclutter/tabline.lua",
     "./lua/unclutter/telescope.lua",
   }
-
-  -- Maybe sort them that depends what you want and need
-  table.sort(input_files, function(a, b)
-    return #a < #b
-  end)
 
   -- Output file
   local output_file = "./doc/unclutter.txt"

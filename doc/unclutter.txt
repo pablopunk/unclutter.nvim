@@ -43,20 +43,41 @@ unclutter.setup({opts})                                    *unclutter.setup()*
 
 
 ================================================================================
-unclutter.config                                            *unclutter.config*
+unclutter.plugin                                            *unclutter.plugin*
 
 
 
-unclutter.config                                            *unclutter.config*
+plugin.buf_just_left()                                *plugin.buf_just_left()*
 
 
 
-config.set({opts})                                              *config.set()*
-    Set config values
+plugin.enable({opts})                                        *plugin.enable()*
+    Initialize the plugin
 
 
     Parameters: ~
         {opts} (unclutter.config)
+
+
+plugin.disable()                                            *plugin.disable()*
+    Disable the plugin
+
+
+
+plugin.setup_autocmds()                              *plugin.setup_autocmds()*
+    Setup the autocmds
+
+
+
+plugin.buffer_should_be_hidden_on_leave({buf}) *plugin.buffer_should_be_hidden_on_leave()*
+    Check if buffer should be hidden
+
+
+    Parameters: ~
+        {buf} (number)
+
+    Return: ~
+        boolean
 
 
 
@@ -201,6 +222,24 @@ buffer.all()                                                    *buffer.all()*
 
 
 ================================================================================
+unclutter.config                                            *unclutter.config*
+
+
+    Fields: ~
+        {clean_after} (number)
+        {tabline}     (boolean)
+
+
+config.set({opts})                                              *config.set()*
+    Set config values
+
+
+    Parameters: ~
+        {opts} (unclutter.config)
+
+
+
+================================================================================
 unclutter.tabline                                          *unclutter.tabline*
 
 
@@ -336,3 +375,10 @@ tabline.prev()                                                *tabline.prev()*
 
 
 
+================================================================================
+unclutter.telescope                                      *unclutter.telescope*
+
+
+
+
+ vim:tw=78:ts=8:ft=help:norl:

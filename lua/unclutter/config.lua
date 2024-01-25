@@ -1,10 +1,11 @@
----@class unclutter.config
 local defaults = {
   clean_after = 3,
   tabline = true,
 }
 
 ---@class unclutter.config
+---@field clean_after number
+---@field tabline boolean
 local config = defaults
 
 --- Set config values
