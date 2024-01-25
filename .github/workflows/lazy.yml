@@ -50,8 +50,5 @@ jobs:
           nvim --headless +qa 2>error.log
           nvim --headless "+Lazy! install" +qa 2>error.log
           nvim --headless +qa 2>error.log
-          [[ -z $(cat error.log) ]] || {
-            echo "Error log:"
-            cat error.log
-            exit 1
-          }
+          cat error.log
+          [[ -z $(cat error.log) ]]
