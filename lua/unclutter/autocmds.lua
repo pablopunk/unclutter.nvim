@@ -1,14 +1,14 @@
 ---@class unclutter.autocmds
-local M = {}
+local autocmds = {}
 local augroup_name = "Unclutter"
 local augroup = vim.api.nvim_create_augroup(augroup_name, {})
 
 -- Remove created augroup
-M.remove_augroup = function()
+autocmds.remove_augroup = function()
   pcall(vim.api.nvim_del_augroup_by_name, augroup_name)
 end
 
-M.on_buf_leave = function(callback)
+autocmds.on_buf_leave = function(callback)
   vim.api.nvim_create_autocmd("BufLeave", {
     group = augroup,
     pattern = "*",
@@ -16,7 +16,7 @@ M.on_buf_leave = function(callback)
   })
 end
 
-M.on_buf_delete = function(callback)
+autocmds.on_buf_delete = function(callback)
   vim.api.nvim_create_autocmd("BufDelete", {
     group = augroup,
     pattern = "*",
@@ -24,7 +24,7 @@ M.on_buf_delete = function(callback)
   })
 end
 
-M.on_buf_enter = function(callback)
+autocmds.on_buf_enter = function(callback)
   vim.api.nvim_create_autocmd("BufEnter", {
     group = augroup,
     pattern = "*",
@@ -32,7 +32,7 @@ M.on_buf_enter = function(callback)
   })
 end
 
-M.on_buf_write_post = function(callback)
+autocmds.on_buf_write_post = function(callback)
   vim.api.nvim_create_autocmd("BufWritePost", {
     group = augroup,
     pattern = "*",
@@ -40,7 +40,7 @@ M.on_buf_write_post = function(callback)
   })
 end
 
-M.on_vim_enter = function(callback)
+autocmds.on_vim_enter = function(callback)
   vim.api.nvim_create_autocmd("VimEnter", {
     group = augroup,
     pattern = "*",
@@ -48,7 +48,7 @@ M.on_vim_enter = function(callback)
   })
 end
 
-M.on_insert_enter = function(callback)
+autocmds.on_insert_enter = function(callback)
   vim.api.nvim_create_autocmd("InsertEnter", {
     group = augroup,
     pattern = "*",
@@ -56,7 +56,7 @@ M.on_insert_enter = function(callback)
   })
 end
 
-M.on_buf_modified_set = function(callback)
+autocmds.on_buf_modified_set = function(callback)
   vim.api.nvim_create_autocmd("BufModifiedSet", {
     group = augroup,
     pattern = "*",
@@ -64,7 +64,7 @@ M.on_buf_modified_set = function(callback)
   })
 end
 
-M.on_win_enter = function(callback)
+autocmds.on_win_enter = function(callback)
   vim.api.nvim_create_autocmd("WinEnter", {
     group = augroup,
     pattern = "*",
@@ -72,7 +72,7 @@ M.on_win_enter = function(callback)
   })
 end
 
-M.on_win_new = function(callback)
+autocmds.on_win_new = function(callback)
   vim.api.nvim_create_autocmd("WinNew", {
     group = augroup,
     pattern = "*",
@@ -80,4 +80,4 @@ M.on_win_new = function(callback)
   })
 end
 
-return M
+return autocmds

@@ -5,22 +5,22 @@ local defaults = {
 }
 
 ---@class unclutter.config
-local M = defaults
+local config = defaults
 
 --- Set config values
 ---@param opts unclutter.config
-function M.set(opts)
+function config.set(opts)
   opts = opts or defaults
 
   if opts.clean_after ~= nil then
-    M.clean_after = opts.clean_after
+    config.clean_after = opts.clean_after
   end
 
   if opts.tabline ~= nil then
-    M.tabline = opts.tabline
+    config.tabline = opts.tabline
   end
 
   return opts
 end
 
-return M
+return config
