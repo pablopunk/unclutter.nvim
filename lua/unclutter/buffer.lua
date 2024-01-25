@@ -10,6 +10,7 @@ end
 
 --- Get the buffer number of the file
 ---@param file_path string
+---@return number|nil
 buffer.number = function(file_path)
   local ok, buf = pcall(vim.fn.bufnr, file_path)
   if not ok then

@@ -30,7 +30,7 @@ local function format(full_path, type)
   return formatted
 end
 
-telescope.open_buffers = function(opts)
+telescope.open = function(opts)
   opts = opts or {}
   opts = {
     format = opts.format or "compact",
