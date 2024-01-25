@@ -1,13 +1,14 @@
----@class Config
+---@class unclutter.config
 local defaults = {
   clean_after = 3,
   tabline = true,
 }
 
----@class Config
+---@class unclutter.config
 local M = defaults
 
----@param opts Config
+--- Set config values
+---@param opts unclutter.config
 function M.set(opts)
   opts = opts or defaults
 

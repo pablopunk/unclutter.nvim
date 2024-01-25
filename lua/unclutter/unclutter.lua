@@ -3,14 +3,15 @@ local buffer = require "unclutter.buffer"
 local tabline = require "unclutter.tabline"
 local config = require "unclutter.config"
 
+---@class unclutter.unclutter
 local M = {}
 
 ---@type number
 M.buf_just_left = nil
 M.enabled = false
 
--- Initialize the plugin
----@param opts Config
+--- Initialize the plugin
+---@param opts unclutter.config
 function M.enable(opts)
   config.set(opts)
 
@@ -27,7 +28,7 @@ function M.enable(opts)
   M.enabled = true
 end
 
--- Disable the plugin
+--- Disable the plugin
 function M.disable()
   if M.enabled == false then
     return
@@ -39,7 +40,7 @@ function M.disable()
   M.enabled = false
 end
 
--- Setup the autocmds
+--- Setup the autocmds
 function M.setup_autocmds()
   autocmds.on_buf_delete(function(event)
     tabline.remove_buffer(event.buf)
@@ -70,7 +71,7 @@ function M.setup_autocmds()
   end)
 end
 
--- Check if buffer should be hidden
+--- Check if buffer should be hidden
 ---@param buf number
 ---@return boolean
 function M.buffer_should_be_hidden_on_leave(buf)

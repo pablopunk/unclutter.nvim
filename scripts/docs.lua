@@ -7,6 +7,10 @@ docs.test = function()
   local input_files = {
     "./lua/unclutter/init.lua",
     "./lua/unclutter/config.lua",
+    "./lua/unclutter/unclutter.lua",
+    "./lua/unclutter/buffer.lua",
+    "./lua/unclutter/tabline.lua",
+    "./lua/unclutter/telescope.lua",
   }
 
   -- Maybe sort them that depends what you want and need

@@ -1,6 +1,7 @@
 local buffer = require "unclutter.buffer"
 local has_icons, icons = pcall(require, "nvim-web-devicons")
 
+---@class unclutter.telescope
 local M = {}
 
 ---@param full_path string
