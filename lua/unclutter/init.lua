@@ -5,7 +5,7 @@ local unclutter = {}
 
 --- Setup function (optional)
 ---@param opts unclutter.config
-function unclutter.setup_foo(opts)
+function unclutter.setup(opts)
   plugin.enable(opts)
 end
 
