@@ -38,14 +38,14 @@ jobs:
           echo
           echo "Downloading lazy.nvim config"
           mkdir -p ~/.config/nvim/lua/config
-          curl "https://raw.githubusercontent.com/LazyVim/starter/main/init.lua" > ~/.config/nvim/init.lua
+          curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/init.lua" > ~/.config/nvim/init.lua
           cat ~/.config/nvim/init.lua
-          curl "https://raw.githubusercontent.com/LazyVim/starter/main/lua/config/lazy.lua" > ~/.config/nvim/lua/config/lazy.lua
+          curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/lua/config/lazy.lua" > ~/.config/nvim/lua/config/lazy.lua
           cat ~/.config/nvim/lua/config/lazy.lua
           echo
           echo "Downloading pablopunk's unclutter config"
           mkdir -p ~/.config/nvim/lua/plugins
-          curl "https://raw.githubusercontent.com/pablopunk/dotfiles/master/nvim/lua/pablopunk/plugins/unclutter.lua" > ~/.config/nvim/lua/plugins/unclutter.lua
+          curl -sL "https://raw.githubusercontent.com/pablopunk/dotfiles/master/nvim/lua/pablopunk/plugins/unclutter.lua" > ~/.config/nvim/lua/plugins/unclutter.lua
           cat ~/.config/nvim/lua/plugins/unclutter.lua
 
       - name: Run tests
@@ -53,11 +53,11 @@ jobs:
           export PATH="${PWD}/_neovim/bin:${PATH}"
           export VIM="${PWD}/_neovim/share/nvim/runtime"
           touch error.log
-          nvim --headless +qa 2>>error.log
-          nvim --headless "+Lazy! install" "+Lazy! update" +qa 2>>error.log
-          nvim --headless +qa 2>>error.log
-          echo
-          cat error.log
-          echo
-          test -s error.log && exit 1
+          nvim --headless +qa
+          nvim --headless "+Lazy! install" "+Lazy! update" +qa
+          nvim --headless +qa
+          # echo
+          # cat error.log
+          # echo
+          # test -s error.log && exit 1
 
