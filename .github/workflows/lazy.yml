@@ -49,7 +49,7 @@ jobs:
           export VIM="${PWD}/_neovim/share/nvim/runtime"
           touch error.log
           nvim --headless +qa 2>>error.log
-          nvim --headless "+Lazy! install" +qa 2>>error.log
+          nvim --headless "+Lazy! install" "+Lazy! update" +qa 2>>error.log
           nvim --headless +qa 2>>error.log
           echo
           cat error.log
