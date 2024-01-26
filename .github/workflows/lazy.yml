@@ -54,4 +54,5 @@ jobs:
           echo
           cat error.log
           echo
-          test -s error.log || exit 1
+          test -s error.log && exit 1
+
