@@ -3,7 +3,7 @@ unclutter                                                          *unclutter*
 
 
 
-unclutter.setup_foo({opts})                            *unclutter.setup_foo()*
+unclutter.setup({opts})                                    *unclutter.setup()*
     Setup function (optional)
 
 
