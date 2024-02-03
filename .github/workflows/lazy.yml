@@ -1,10 +1,10 @@
-name: Tests
+name: Lazy
 
 on: [push, pull_request]
 
 jobs:
   tests:
-    name: lazy test
+    name: unit tests
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -12,12 +12,8 @@ jobs:
         include:
           - os: ubuntu-latest
             rev: nightly/nvim-linux64.tar.gz
-            manager: sudo apt-get
-            # packages: -y ripgrep
           - os: ubuntu-latest
             rev: v0.9.0/nvim-linux64.tar.gz
-            manager: sudo apt-get
-            # packages: -y ripgrep
     steps:
       - uses: actions/checkout@v3
       - run: date +%F > todays-date
@@ -27,37 +23,42 @@ jobs:
           path: _neovim
           key: ${{ runner.os }}-${{ matrix.rev }}-${{ hashFiles('todays-date') }}
 
-      - name: Prepare
+      - name: Install neovim
         run: |
-          ${{ matrix.manager }} update
-          # ${{ matrix.manager }} install ${{ matrix.packages }}
           test -d _neovim || {
             mkdir -p _neovim
             curl -sL "https://github.com/neovim/neovim/releases/download/${{ matrix.rev }}" | tar xzf - --strip-components=1 -C "${PWD}/_neovim"
           }
-          echo
-          echo "Downloading lazy.nvim config"
-          mkdir -p ~/.config/nvim/lua/config
-          curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/init.lua" > ~/.config/nvim/init.lua
-          cat ~/.config/nvim/init.lua
-          curl -sL "https://raw.githubusercontent.com/LazyVim/starter/main/lua/config/lazy.lua" > ~/.config/nvim/lua/config/lazy.lua
-          cat ~/.config/nvim/lua/config/lazy.lua
-          echo
-          echo "Downloading pablopunk's unclutter config"
-          mkdir -p ~/.config/nvim/lua/plugins
-          curl -sL "https://raw.githubusercontent.com/pablopunk/dotfiles/master/nvim/lua/pablopunk/plugins/unclutter.lua" > ~/.config/nvim/lua/plugins/unclutter.lua
-          cat ~/.config/nvim/lua/plugins/unclutter.lua
 
-      - name: Run tests
+      - name: Install Lazy.nvim
+        run: |
+          mkdir -p ~/.config/nvim
+          cat > ~/.config/nvim/init.lua <<EOF
+            local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+            if not vim.loop.fs_stat(lazypath) then
+              vim.fn.system {
+                "git",
+                "clone",
+                "--filter=blob:none",
+                "https://github.com/folke/lazy.nvim.git",
+                "--branch=stable", -- latest stable release
+                lazypath,
+              }
+            end
+            vim.opt.rtp:prepend(lazypath)
+
+            require("lazy").setup({{
+              dir = "./",
+              name = "unclutter.nvim",
+              config = function()
+                require("unclutter").setup{}
+              end,
+            }})
+          EOF
+
+      - name: Run Neovim Headless
         run: |
           export PATH="${PWD}/_neovim/bin:${PATH}"
           export VIM="${PWD}/_neovim/share/nvim/runtime"
-          touch error.log
-          nvim --headless +qa
-          nvim --headless "+Lazy! install" "+Lazy! update" +qa
-          nvim --headless +qa
-          # echo
-          # cat error.log
-          # echo
-          # test -s error.log && exit 1
-
+          nvim --headless -c 'qa' 2>> error.log
+          test -z $(cat error.log) || { cat error.log; exit 1; }
