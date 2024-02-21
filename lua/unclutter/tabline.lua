@@ -10,10 +10,13 @@ tabline.buffers_to_keep = {}
 tabline.tabpage_section = ""
 tabline.tablineat = vim.fn.has "tablineat"
 
+-- We still need to allow hidden buffers even if we don't show the tabline
+-- Cause we might wanna use the telescope plugin to switch unclutter buffers
+vim.o.hidden = true
+
 --- Set vim options and format tabline
 function tabline.enable()
   vim.o.showtabline = 2
-  vim.o.hidden = true
   tabline.create_highlight_groups()
   tabline.create_clickable_tab_fn()
   vim.o.tabline = [[%!luaeval('require("unclutter.tabline").get_tabline_string()')]]
