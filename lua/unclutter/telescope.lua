@@ -1,5 +1,4 @@
 local buffer = require "unclutter.buffer"
-local has_icons, icons = pcall(require, "nvim-web-devicons")
 
 ---@class unclutter.telescope
 local telescope = {}
@@ -54,6 +53,7 @@ telescope.open = function(opts)
   local previewers = require "telescope.previewers"
   local entry_display = require "telescope.pickers.entry_display"
   local action_state = require "telescope.actions.state"
+  local has_icons, icons = pcall(require, "nvim-web-devicons")
 
   pickers
     .new({

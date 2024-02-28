@@ -1,6 +1,7 @@
 local buffer = require "unclutter.buffer"
-local has_icons, icons = pcall(require, "nvim-web-devicons")
 local config = require "unclutter.config"
+
+local has_icons, icons -- init later (when needed)
 
 ---@class unclutter.tabline
 local tabline = {}
@@ -16,6 +17,7 @@ vim.o.hidden = true
 
 --- Set vim options and format tabline
 function tabline.enable()
+  has_icons, icons = pcall(require, "nvim-web-devicons")
   vim.o.showtabline = 2
   tabline.create_highlight_groups()
   tabline.create_clickable_tab_fn()

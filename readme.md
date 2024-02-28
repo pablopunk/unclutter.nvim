@@ -2,11 +2,10 @@
 
 > Focus on what matters
 
-*unclutter.nvim* is a **tabline that removes the clutter** to help you focus on the files that matter to **you**.
+_unclutter.nvim_ is a **tabline that removes the clutter** to help you focus on the files that matter to **you**.
 
 ![before-after](./art/before-after-light.png#gh-light-mode-only)
 ![before-after](./art/before-after-dark.png#gh-dark-mode-only)
-
 
 - [Installation](#installation)
   - [Lazy.nvim](#lazynvim)
@@ -18,10 +17,9 @@
   - [Utils](#utils)
 - [Inspiration](#inspiration)
 
-
 ## Installation
 
-Use your favorite package manager. Calling the `setup()` function is optional.
+Use your favorite package manager. Don't forget to call `setup`.
 
 ### Lazy.nvim
 
@@ -32,24 +30,13 @@ Use your favorite package manager. Calling the `setup()` function is optional.
     "nvim-tree/nvim-web-devicons"   -- optional, to show icons on tabs
     "nvim-telescope/telescope.nvim" -- optional, to use the telescope integration
   },
-}
-```
-
-### Packer.nvim
-
-```lua
-use {
-  "pablopunk/unclutter.nvim",
-  requires = {
-    "nvim-tree/nvim-web-devicons"   -- optional, to show icons on tabs
-    "nvim-telescope/telescope.nvim" -- optional, to use the telescope integration
-  }
+  config = true -- this will call require("unclutter").setup()
 }
 ```
 
 ## Features
 
-You're working on a large project and you're jumping through function definitions and index files that endup cluttering your tabline. *Unclutter.nvim* will:
+You're working on a large project and you're jumping through function definitions and index files that endup cluttering your tabline. _Unclutter.nvim_ will:
 
 ### Only show the buffers you need
 
@@ -151,20 +138,18 @@ Of course:
 :help unclutter
 ```
 
-
 ## Inspiration
 
 This behavior was inspired by vscode (sorry), that won't keep your tabs open until you hit save (or double-click the tab).
 
-To create the tabline I used [*mini.tabline*](https://github.com/echasnovski/mini.tabline/) as a starting point. It's a great plugin and the one I was using before. The label/tabs implementation on [`tabline.lua`](./lua/unclutter/tabline.lua) is an adaptation of *mini.tabline*'s code.
+To create the tabline I used [_mini.tabline_](https://github.com/echasnovski/mini.tabline/) as a starting point. It's a great plugin and the one I was using before. The label/tabs implementation on [`tabline.lua`](./lua/unclutter/tabline.lua) is an adaptation of _mini.tabline_'s code.
 
 Also this plugin was not only inspired by [harpoon](https://github.com/ThePrimeagen/harpoon) too, it's the main reason behind it. I was trying to hack harpoon to get this behavior, but didn't like the outcome. The plugin is great but I don't like their tabs implementation and other small stuff. It was there when I realized I could just code my own.
 
 Other plugins I've used to unclutter in the past:
 
-* [nvim-early-retirement](https://github.com/chrisgrieser/nvim-early-retirement)
-* [hbac.nvim](https://github.com/axkirillov/hbac.nvim)
+- [nvim-early-retirement](https://github.com/chrisgrieser/nvim-early-retirement)
+- [hbac.nvim](https://github.com/axkirillov/hbac.nvim)
 
 ![logo-light](./art/logo-light.png#gh-light-mode-only)
 ![logo-dark](./art/logo-dark.png#gh-dark-mode-only)
-
