@@ -220,7 +220,7 @@ end
 function tabline.next()
   local buffers = tabline.list()
   if buffers == nil or #buffers < 2 then
-    print "No more buffers"
+    -- print "No more buffers"
     return
   end
   local current = buffer.current()
@@ -245,7 +245,7 @@ end
 function tabline.prev()
   local buffers = tabline.list()
   if buffers == nil or #buffers < 2 then
-    print "No more buffers"
+    -- print "No more buffers"
     return
   end
   local current = buffer.current()
