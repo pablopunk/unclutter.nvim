@@ -1,7 +1,7 @@
 local autocmds = require "unclutter.autocmds"
 local buffer = require "unclutter.buffer"
-local tabline = require "unclutter.tabline"
 local config = require "unclutter.config"
+local tabline = require "unclutter.tabline"
 
 ---@class unclutter.plugin
 local plugin = {}

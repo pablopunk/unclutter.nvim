@@ -1,6 +1,6 @@
-local mock = require "luassert.mock"
 local M = require "unclutter.plugin"
 local config = require "unclutter.config"
+local mock = require "luassert.mock"
 
 local autocmds, buffer, tabline
 
