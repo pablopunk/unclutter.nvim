@@ -33,6 +33,7 @@ telescope.open = function(opts)
   opts = opts or {}
   opts = {
     format = opts.format or "compact",
+    hide_current = opts.hide_current or false,
   }
 
   if not pcall(require, "telescope") then
@@ -40,7 +41,7 @@ telescope.open = function(opts)
     return
   end
 
-  local tabline_buffers = require("unclutter.tabline").list()
+  local tabline_buffers = require("unclutter.tabline").list(opts.hide_current)
 
   -- Sort the buffers by last used
   table.sort(tabline_buffers, function(a, b)
