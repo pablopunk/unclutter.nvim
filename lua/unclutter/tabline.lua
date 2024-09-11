@@ -164,7 +164,7 @@ function tabline.get_tab_label(buf)
 end
 
 --- Get all buffers to be displayed in the tabline
----@param hide_current boolean
+---@param hide_current boolean?
 ---@return table<number, number>
 function tabline.list(hide_current)
   hide_current = hide_current or false
