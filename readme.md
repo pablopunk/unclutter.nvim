@@ -74,6 +74,12 @@ unclutter.telescope { format = "cwd" } -- path/folder/file.js
 unclutter.telescope { format = "filename" } -- file.js
 ```
 
+You can also hide the current buffer in the list:
+
+```lua
+unclutter.telescope { hide_current = true } -- default: false
+```
+
 If you want to use the telescope integration without the tabline, you can disable it:
 
 ```lua

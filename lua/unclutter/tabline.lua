@@ -164,20 +164,26 @@ function tabline.get_tab_label(buf)
 end
 
 --- Get all buffers to be displayed in the tabline
+---@param hide_current boolean?
 ---@return table<number, number>
-function tabline.list()
+function tabline.list(hide_current)
+  hide_current = hide_current or false
   local buffers = {}
   local all_buffers = buffer.all()
+  local current_buffer = buffer.current()
 
   for _, buf in ipairs(all_buffers) do
-    if
-      buffer.current() == buf -- keep current buffer
+    local is_current_buf = buf == current_buffer
+    local should_keep = is_current_buf -- keep current buffer
       or tabline.is_buffer_kept(buf) -- keep buffers that are marked
       or buffer.is_visible(buf) -- keep visible buffers
       or not buffer.is_file(buf) -- keep non-file buffers
       or #buffers < config.clean_after -- keep first n buffers (config)
-    then
-      table.insert(buffers, buf)
+
+    if should_keep then
+      if not is_current_buf or not hide_current then
+        table.insert(buffers, buf)
+      end
     end
   end
 
