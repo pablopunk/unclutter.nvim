@@ -49,7 +49,7 @@ function tabline.make_tabpage_section()
   end
 
   local cur_tabpagenr = vim.fn.tabpagenr()
-  tabline.tabpage_section = (" Tab %s/%s "):format(cur_tabpagenr, n_tabpages)
+  tabline.tabpage_section = (" %s/%s "):format(cur_tabpagenr, n_tabpages)
 end
 
 --- Remove a buffer from the list

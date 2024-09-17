@@ -14,7 +14,7 @@ describe("Tabpage section", function()
 
   it("creates tabpage section for multiple tabpages", function()
     M.make_tabpage_section()
-    assert.are.equal(" Tab 2/3 ", M.tabpage_section)
+    assert.are.equal(" 2/3 ", M.tabpage_section)
   end)
 
   it("creates no tabpage section for a single tabpage", function()
