@@ -119,12 +119,12 @@ local bufnr = buffer.current()
 tabline.keep(bufnr)
 
 -- navigate tabline buffers (like :bnext and :bprev)
-tabline.next()             -- Go to next buffer
-tabline.prev()             -- Go to previous buffer
+tabline.next()                      -- Go to next buffer
+tabline.prev()                      -- Go to previous buffer
 
 -- handle plugin (on/off)
-plugin.enable()            -- Enable unclutter
-plugin.disable()           -- Disable unclutter
+plugin.enable()                     -- Enable unclutter
+plugin.disable()                    -- Disable unclutter
 ```
 
 Example mappings:
