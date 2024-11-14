@@ -8,7 +8,7 @@ unclutter.setup({opts})                                    *unclutter.setup()*
 
 
     Parameters: ~
-        {opts} (unclutter.config)
+        {opts} (unclutter)  .config
 
 
 
@@ -252,7 +252,7 @@ config.set({opts})                                              *config.set()*
 
 
     Parameters: ~
-        {opts} (unclutter.config)
+        {opts} (unclutter)  .config
 
 
 
@@ -270,7 +270,7 @@ plugin.enable({opts})                                        *plugin.enable()*
 
 
     Parameters: ~
-        {opts} (unclutter.config)
+        {opts} (unclutter)  .config
 
 
 plugin.disable()                                            *plugin.disable()*
@@ -399,9 +399,12 @@ tabline.get_tab_label({buf})                         *tabline.get_tab_label()*
         string|nil
 
 
-tabline.list()                                                *tabline.list()*
+tabline.list({hide_current})                                  *tabline.list()*
     Get all buffers to be displayed in the tabline
 
+
+    Parameters: ~
+        {hide_current} (boolean)  ?
 
     Return: ~
         table<number, number>
@@ -427,6 +430,11 @@ tabline.next()                                                *tabline.next()*
 
 tabline.prev()                                                *tabline.prev()*
     Navigate to previous buffer
+
+
+
+tabline.keep_all_buffers()                        *tabline.keep_all_buffers()*
+    Mark all open buffers as listed
 
 
 
