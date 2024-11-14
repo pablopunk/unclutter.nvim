@@ -42,6 +42,16 @@ describe("Buffer management", function()
     assert.is_true(M.is_buffer_kept(1))
   end)
 
+  it("keeps all open buffers", function()
+    vim.api.nvim_list_bufs = function()
+      return { 1, 2, 3 }
+    end
+    M.keep_all_buffers()
+    assert.is_true(M.is_buffer_kept(1))
+    assert.is_true(M.is_buffer_kept(2))
+    assert.is_true(M.is_buffer_kept(3))
+  end)
+
   it("removes a buffer", function()
     M.keep_buffer(1)
     M.remove_buffer(1)

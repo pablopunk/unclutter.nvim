@@ -272,4 +272,11 @@ function tabline.prev()
   end
 end
 
+--- Mark all open buffers as listed
+function tabline.keep_all_buffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    tabline.keep_buffer(buf)
+  end
+end
+
 return tabline

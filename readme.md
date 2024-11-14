@@ -110,6 +110,7 @@ local buffer = require("unclutter.buffer")
 local plugin = require("unclutter.plugin")
 
 tabline.keep_buffer(bufnr)          -- Show buffer in tabline
+tabline.keep_all_buffers()          -- Show all open buffers in tabline
 tabline.remove_buffer(bufnr)        -- Show buffer in tabline
 tabline.toggle_buffer(bufnr)        -- Toggle buffer in tabline
 tabline.list()                      -- List tabline buffers
