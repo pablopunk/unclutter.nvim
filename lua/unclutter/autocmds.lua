@@ -69,9 +69,10 @@ autocmds.on_insert_enter = function(callback)
 end
 
 ---Create an autocmd for the BufModifiedSet event.
+---Falls back silently if the event is not available (e.g., older or dev builds).
 ---@param callback function: The callback function to be executed.
 autocmds.on_buf_modified_set = function(callback)
-  vim.api.nvim_create_autocmd("BufModifiedSet", {
+  pcall(vim.api.nvim_create_autocmd, "BufModifiedSet", {
     group = augroup,
     pattern = "*",
     callback = callback,
