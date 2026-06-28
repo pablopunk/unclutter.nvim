@@ -71,7 +71,8 @@ autocmds.on_insert_enter({callback})              *autocmds.on_insert_enter()*
 
 
 autocmds.on_buf_modified_set({callback})      *autocmds.on_buf_modified_set()*
-    Create an autocmd for the BufModifiedSet event.
+    Create an autocmd for the BufModifiedSet event. Falls back silently if the
+    event is not available (e.g., older or dev builds).
 
 
     Parameters: ~
