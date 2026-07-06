@@ -4,7 +4,10 @@ local buffer = {}
 --- Get the current buffer
 ---@return number
 buffer.current = function()
-  local _, buf = pcall(vim.api.nvim_get_current_buf)
+  local ok, buf = pcall(vim.api.nvim_get_current_buf)
+  if not ok then
+    return nil
+  end
   return buf
 end
 
@@ -117,7 +120,7 @@ buffer.all = function()
   local current_buf = buffer.current()
 
   -- add current buffer to list if it's not listed
-  if not vim.tbl_contains(listed_buffers, current_buf) then
+  if current_buf ~= nil and not vim.tbl_contains(listed_buffers, current_buf) then
     table.insert(listed_buffers, current_buf)
   end
 
