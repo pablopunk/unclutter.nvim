@@ -109,18 +109,26 @@ end
 ---@param buf number
 ---@return boolean
 buffer.listed = function(buf)
-  return vim.bo[buf].buflisted
+  local ok, listed = pcall(function()
+    return vim.bo[buf].buflisted
+  end)
+  return ok and listed
 end
 
 --- Return all listed buffers + the current buffer (even if it's not listed)
 ---@return table
 buffer.all = function()
-  local buf_list = vim.api.nvim_list_bufs()
+  local ok, buf_list = pcall(vim.api.nvim_list_bufs)
+  if not ok then
+    return {}
+  end
   local listed_buffers = vim.tbl_filter(buffer.listed, buf_list)
   local current_buf = buffer.current()
 
-  -- add current buffer to list if it's not listed
-  if current_buf ~= nil and not vim.tbl_contains(listed_buffers, current_buf) then
+  -- add current buffer to list if it's not listed and it's a valid buffer
+  if current_buf ~= nil
+    and buffer.is_valid(current_buf)
+    and not vim.tbl_contains(listed_buffers, current_buf) then
     table.insert(listed_buffers, current_buf)
   end
 
